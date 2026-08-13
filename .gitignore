@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+gee.json
+*service-account*.json
+*.pem
+*.pfx
+packages/zd-tools/lib/
+packages/zd-tools/*.tgz
