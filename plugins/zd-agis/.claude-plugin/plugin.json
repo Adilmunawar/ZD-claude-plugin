@@ -1,0 +1,25 @@
+{
+  "name": "zd-agis",
+  "displayName": "Zaraat Dost · AGIS Web",
+  "description": "Next.js + Firebase + Earth Engine dashboard conventions: cadastral schema, GEE API routes, Pyodide workers, inference backend",
+  "version": "7.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-agis",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "agis-web"
+  ],
+  "dependencies": [
+    {
+      "name": "zd-gee",
+      "version": "^7.3.0"
+    }
+  ]
+}
