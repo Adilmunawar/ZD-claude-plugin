@@ -1,0 +1,19 @@
+{
+  "name": "zd-gee",
+  "displayName": "Zaraat Dost · Earth Engine",
+  "description": "Authentication, export limits, Sentinel-1/2 composites, index time series, harvest detection",
+  "version": "7.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-gee",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "earth-engine"
+  ]
+}
