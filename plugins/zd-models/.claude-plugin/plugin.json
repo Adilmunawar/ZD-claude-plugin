@@ -1,0 +1,33 @@
+{
+  "name": "zd-models",
+  "displayName": "Zaraat Dost · Models",
+  "description": "End-to-end cadastral and land-use pipeline: boundary inference, spectral features, classification, sub-parcelling, SAM2",
+  "version": "7.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-models",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "models"
+  ],
+  "dependencies": [
+    {
+      "name": "zd-vector",
+      "version": "^7.3.0"
+    },
+    {
+      "name": "zd-gee",
+      "version": "^7.3.0"
+    },
+    {
+      "name": "zd-ml",
+      "version": "^7.3.0"
+    }
+  ]
+}
