@@ -1,0 +1,23 @@
+{
+  "name": "zd-ops",
+  "displayName": "Zaraat Dost · Ops",
+  "description": "Incident response, runbooks, postmortems, observability conventions, on-call hand-over",
+  "version": "7.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-ops",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "ops"
+  ],
+  "dependencies": [
+    {
+      "name": "zd-deploy",
+      "version": "^7.3.0"
+    }
+  ]
+}
