@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "python.defaultInterpreterPath": "~/miniconda3/envs/zd/bin/python",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/bin": true,
+    "**/obj": true
+  }
+}
