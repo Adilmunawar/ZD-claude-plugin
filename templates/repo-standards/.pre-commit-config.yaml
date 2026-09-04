@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: ["--maxkb=51200"]
+      - id: check-merge-conflict
+      - id: detect-private-key
+  - repo: local
+    hooks:
+      - id: zd-secrets-audit
+        name: zd secrets audit
+        entry: node .zd/secrets-audit.js .
+        language: system
+        pass_filenames: false
+        # fetch once: mkdir -p .zd && curl -fsSL https://raw.githubusercontent.com/adilmunawar/ZD-claude-plugin/main/plugins/zd-core/scripts/{patterns,secrets-audit}.js -o .zd/#1.js

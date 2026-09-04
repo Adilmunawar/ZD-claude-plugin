@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "anthropic.claude-code",
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "ms-dotnettools.csdevkit",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "expo.vscode-expo-tools",
+    "editorconfig.editorconfig",
+    "eamodio.gitlens"
+  ]
+}
