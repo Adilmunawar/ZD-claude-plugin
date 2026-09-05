@@ -1,0 +1,16 @@
+{
+  "name": "zd-reports",
+  "description": "Client deliverable reports, memos and layer metadata sheets from geospatial outputs.",
+  "version": "0.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "keywords": [
+    "gis",
+    "agriculture"
+  ],
+  "displayName": "Zaraat Dost \u00b7 Reports",
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-reports"
+}

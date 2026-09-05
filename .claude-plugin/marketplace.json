@@ -1,0 +1,119 @@
+{
+  "name": "zaraatdost",
+  "owner": {
+    "name": "Zaraat Dost (Pvt.) Limited",
+    "url": "https://github.com/adilmunawar"
+  },
+  "description": "Claude Plugins for Zaraat Dost \u2014 agents, skills and guardrails for agricultural geospatial, remote-sensing and GIS-dashboard engineering (Python / .NET)",
+  "plugins": [
+    {
+      "name": "zaraat-dost",
+      "displayName": "Claude Plugins for Zaraat Dost (all modules)",
+      "source": "./plugins/zaraat-dost",
+      "description": "Complete toolkit \u2014 installs every zd-* module below",
+      "category": "geospatial",
+      "tags": [
+        "bundle",
+        "recommended"
+      ],
+      "keywords": [
+        "zaraat-dost",
+        "gis",
+        "agriculture"
+      ]
+    },
+    {
+      "name": "zd-core",
+      "displayName": "Zaraat Dost \u00b7 Core",
+      "source": "./plugins/zd-core",
+      "description": "Guardrails, stack detection, onboarding, handoff, output style",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "core"
+      ]
+    },
+    {
+      "name": "zd-gis",
+      "displayName": "Zaraat Dost \u00b7 GIS",
+      "source": "./plugins/zd-gis",
+      "description": "Spatial DB study & management, dashboards, layer publishing (Python / .NET)",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "gis"
+      ]
+    },
+    {
+      "name": "zd-vector",
+      "displayName": "Zaraat Dost \u00b7 Vector",
+      "source": "./plugins/zd-vector",
+      "description": "Raster\u2192parcel vectors, topology repair, edge straightening, road subtraction, gap analysis",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "vector"
+      ]
+    },
+    {
+      "name": "zd-ml",
+      "displayName": "Zaraat Dost \u00b7 ML",
+      "source": "./plugins/zd-ml",
+      "description": "Satellite segmentation training, pre-flight checks, model cards",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "ml"
+      ]
+    },
+    {
+      "name": "zd-gee",
+      "displayName": "Zaraat Dost \u00b7 Earth Engine",
+      "source": "./plugins/zd-gee",
+      "description": "Auth, export limits, S1/S2 composites, NDVI time series, harvest detection",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "earth-engine"
+      ]
+    },
+    {
+      "name": "zd-reports",
+      "displayName": "Zaraat Dost \u00b7 Reports",
+      "source": "./plugins/zd-reports",
+      "description": "Deliverable memos, harvest reports, layer metadata",
+      "category": "geospatial",
+      "tags": [
+        "module"
+      ],
+      "keywords": [
+        "gis",
+        "agriculture",
+        "reports"
+      ]
+    }
+  ],
+  "renames": {},
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "version": "0.3.0"
+}

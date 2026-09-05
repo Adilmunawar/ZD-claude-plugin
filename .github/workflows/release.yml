@@ -1,0 +1,18 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tag matches bundle version
+        run: |
+          V=$(python3 -c "import json;print(json.load(open('plugins/zaraat-dost/.claude-plugin/plugin.json'))['version'])")
+          [ "v$V" = "${GITHUB_REF_NAME}" ] || { echo "tag ${GITHUB_REF_NAME} != bundle version v$V"; exit 1; }
+      - name: Extract changelog section
+        run: awk -v v="${GITHUB_REF_NAME#v}" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
+      - uses: softprops/action-gh-release@v2
+        with: { body_path: RELEASE_NOTES.md }

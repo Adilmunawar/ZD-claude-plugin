@@ -1,0 +1,16 @@
+{
+  "name": "zd-gee",
+  "description": "Google Earth Engine patterns: service-account auth, export limits, Sentinel-1/2 composites, NDVI time series, harvest detection.",
+  "version": "0.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "keywords": [
+    "gis",
+    "agriculture"
+  ],
+  "displayName": "Zaraat Dost \u00b7 Earth Engine",
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-gee"
+}

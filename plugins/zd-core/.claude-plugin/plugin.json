@@ -1,0 +1,16 @@
+{
+  "name": "zd-core",
+  "description": "Team guardrails, stack detection, onboarding, session handoff and output style. Install this first.",
+  "version": "0.3.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "keywords": [
+    "gis",
+    "agriculture"
+  ],
+  "displayName": "Zaraat Dost \u00b7 Core",
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-core"
+}

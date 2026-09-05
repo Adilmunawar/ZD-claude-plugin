@@ -1,0 +1,24 @@
+{
+  "extraKnownMarketplaces": {
+    "zaraatdost": {
+      "source": {
+        "source": "github",
+        "repo": "adilmunawar/ZD-claude-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "zaraat-dost@zaraatdost": true
+  },
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/gee.json)",
+      "Read(./**/*service-account*.json)",
+      "Read(./**/appsettings.Production.json)"
+    ]
+  }
+}
