@@ -17,5 +17,5 @@ jobs:
         run: |
           T="${GITHUB_REF_NAME#v}"; case "$T" in *.*.*) ;; *.*) T="$T.0";; esac
           awk -v v="$T" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with: { body_path: RELEASE_NOTES.md }
