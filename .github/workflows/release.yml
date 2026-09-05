@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: { contents: write }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check tag matches bundle version
         run: |
           V=$(python3 -c "import json;print(json.load(open('plugins/zaraat-dost/.claude-plugin/plugin.json'))['version'])")
