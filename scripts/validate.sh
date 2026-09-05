@@ -9,7 +9,7 @@ for s in plugins/*/scripts/*.js; do node --check "$s"; done && echo ok
 echo "== python syntax"
 python3 -m py_compile plugins/zd-vector/scripts/raster_to_polygons.py scripts/gen-docs.py && echo ok
 echo "== node tests"
-node --test "tests/*.test.js"
+node --test tests/*.test.js
 echo "== python tests"
 if python3 -c "import pytest" 2>/dev/null; then python3 -m pytest -q tests/; else python3 -c "
 import importlib.util,sys; spec=importlib.util.spec_from_file_location('t','tests/test_repo.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
