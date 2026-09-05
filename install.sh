@@ -2,7 +2,7 @@
 # Zaraat Dost toolkit installer — macOS / Linux / WSL / Git Bash
 # Usage: bash <(curl -fsSL https://raw.githubusercontent.com/adilmunawar/ZD-claude-plugin/main/install.sh) [module] [--source <owner/repo|path>]
 set -euo pipefail
-MODULE="zaraat-dost"; SOURCE="adilmunawar/ZD-claude-plugin"
+MODULE="zaraat-dost"; SOURCE="https://github.com/Adilmunawar/ZD-claude-plugin.git"
 while [ $# -gt 0 ]; do case "$1" in --source) SOURCE="$2"; shift 2;; *) MODULE="$1"; shift;; esac; done
 B=$'\033[1m'; G=$'\033[32m'; Y=$'\033[33m'; R=$'\033[31m'; N=$'\033[0m'
 echo "${B}Claude Plugins for Zaraat Dost — installer${N}"
