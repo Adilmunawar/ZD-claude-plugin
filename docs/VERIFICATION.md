@@ -1,6 +1,6 @@
 # Verification log
 
-Run before each release against a clean environment. Last run: 2026-09-05 (v0.7.0), Claude Code 2.1.261, Node 22, Ubuntu 24.
+Run before each release against a clean environment. Last run: 2026-09-06 (v7.2.0), Claude Code 2.1.261, Node 22, Ubuntu 24.
 
 | Step | Command | Result |
 |---|---|---|

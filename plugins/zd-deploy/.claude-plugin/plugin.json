@@ -2,7 +2,7 @@
   "name": "zd-deploy",
   "displayName": "Zaraat Dost \u00b7 Deploy",
   "description": "Local vs cloud profiles (Firebase App Hosting, Vercel, Hugging Face Spaces, EAS, Docker on AWS), pre-flight and rollback",
-  "version": "0.7.0",
+  "version": "7.2.0",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -19,7 +19,7 @@
   "dependencies": [
     {
       "name": "zd-core",
-      "version": "^0.7.0"
+      "version": "^7.2.0"
     }
   ]
 }

@@ -2,6 +2,9 @@
 
 Run `/zaraat-dost:upgrade`; it applies the steps below for every version you cross. Versions not listed need no manual action.
 
+## 0.7.0 → 7.2.0
+- Version number only. Run `/zaraat-dost:upgrade`; the update check treats 7.2.0 as newer than 0.7.0.
+
 ## 0.6.x → 0.7.0
 - New module `zd-usage` (pulled in by the bundle). It adds a SessionEnd hook that writes a per-session token summary to `~/.claude/zd-usage/ledger.jsonl` and a SessionStart budget check. Delete that folder to reset; set `ZD_USAGE_HOME` to relocate it.
 - All skill and agent descriptions were shortened; behaviour is unchanged but auto-activation now keys on fewer words — if a background skill stops firing for a phrasing you used, invoke the agent or command directly.

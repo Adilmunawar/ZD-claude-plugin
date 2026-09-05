@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zaraatdost",
-  "version": "0.7.0",
+  "version": "7.2.0",
   "owner": {
     "name": "Zaraat Dost (Pvt.) Limited",
     "url": "https://github.com/adilmunawar"

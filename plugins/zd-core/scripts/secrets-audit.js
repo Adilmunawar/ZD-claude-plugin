@@ -41,6 +41,7 @@ function audit(root, opts = {}) {
     let file = "history";
     for (const line of log.split("\n")) {
       if (line.startsWith("+++ b/")) { file = line.slice(6); continue; }
+      if ([...ignore].some(d => file === d || file.startsWith(d + "/"))) continue;
       if (!line.startsWith("+") || line.startsWith("+++")) continue;
       scanText(line.slice(1), file, findings, "history");
     }

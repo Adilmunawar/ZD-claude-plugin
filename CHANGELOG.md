@@ -2,6 +2,15 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.2.0 — 2026-09-06
+
+Changed
+- Version scheme moves to 7.x (tag `v7.2` or `v7.2.0`); no functional change from 0.7.0 other than the fixes below.
+
+Fixed
+- `secrets-audit --history` now honours `--ignore`, so test fixtures in git history no longer fail CI.
+- Release workflow accepts two-part tags (`v7.2` → 7.2.0); validate workflow checks out full history for the audit.
+
 ## 0.7.0 — 2026-09-05
 
 Added

@@ -24,6 +24,13 @@ test("finds embedded service-account key, HF token and secret file", () => {
   assert.ok(!f.some(x => x.file.startsWith("node_modules/")), "node_modules skipped");
   assert.ok(!f.some(x => x.file === "README.md"));
 });
+test("--ignore applies to git history as well as the working tree", () => {
+  const { execSync } = require("child_process");
+  const d = tmpRepo({ "tests/fixture.js": 'const k = "hf_' + "Z".repeat(34) + '";', "app.py": "print(1)\n" });
+  execSync("git init -q -b main && git add . && git -c user.name=t -c user.email=t@t commit -q -m fixture", { cwd: d });
+  assert.ok(audit(d, { history: true }).length > 0, "fixture is found when nothing is ignored");
+  assert.equal(audit(d, { history: true, ignore: ["tests"] }).length, 0, "ignored directory is skipped in history too");
+});
 test("clean repo yields no findings", () => {
   const d = tmpRepo({ "app.py": 'import os\nTOKEN = os.environ["HF_TOKEN"]\n', ".env.example": "HF_TOKEN=\n" });
   assert.equal(audit(d).length, 0);
