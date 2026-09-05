@@ -31,6 +31,17 @@ This repository packages those rules as Claude Code plugins, so every engineer's
 
 ## Quick start
 
+**Windows — PowerShell** (installs Claude Code if missing, adds the marketplace, installs everything):
+```powershell
+irm https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin/main/install.ps1 | iex
+```
+
+**macOS / Linux / WSL — bash:**
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin/main/install.sh)
+```
+
+**Or from inside Claude Code:**
 ```text
 /plugin marketplace add Adilmunawar/ZD-claude-plugin
 /plugin install zaraat-dost@zaraatdost
@@ -45,18 +56,14 @@ Then, inside a project:
 ```
 
 <details>
-<summary><b>Shell installers, new machines, per-repository auto-install</b></summary>
+<summary><b>Single module, new machine, per-repository auto-install, offline</b></summary>
 
-Windows PowerShell:
-```powershell
-irm https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin/main/install.ps1 | iex
-```
-macOS / Linux / WSL:
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin/main/install.sh)
-```
-New machine: `/zaraat-dost:workstation` installs Git, Node, the Python GIS stack, GDAL, .NET SDK, GitHub CLI, VS Code extensions and Claude Code.
-Zero-command onboarding for a repository: commit `templates/.claude/settings.json` as `.claude/settings.json`; anyone who trusts the folder gets the toolkit automatically. Details in [docs/INSTALL.md](docs/INSTALL.md).
+- One module only: `/plugin install zd-vector@zaraatdost` — or `.\install.ps1 -Module zd-vector` / `install.sh zd-vector`.
+- New machine: `/zaraat-dost:workstation` installs Git, Node, the Python GIS stack, GDAL, .NET SDK, GitHub CLI, VS Code extensions and Claude Code.
+- Zero-command onboarding for a repository: commit `templates/.claude/settings.json` as `.claude/settings.json`; anyone who trusts the folder gets the toolkit automatically.
+- Offline: download `ZD-claude-plugin-<version>.zip` from the [latest release](https://github.com/Adilmunawar/ZD-claude-plugin/releases/latest), then `claude plugin marketplace add ./ZD-claude-plugin-<version>`.
+
+Details in [docs/INSTALL.md](docs/INSTALL.md).
 </details>
 
 ## Use cases
