@@ -43,7 +43,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin
 
 **Or from inside Claude Code:**
 ```text
-/plugin marketplace add Adilmunawar/ZD-claude-plugin
+/plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git
 /plugin install zaraat-dost@zaraatdost
 ```
 

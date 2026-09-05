@@ -2,7 +2,7 @@
 # Usage: irm https://raw.githubusercontent.com/Adilmunawar/ZD-claude-plugin/main/install.ps1 | iex
 #        or: .\install.ps1 [-Module zd-gis] [-Source owner/repo|path]
 # Never calls `exit` (which would close the window when run via iex); all failures return with a message.
-param([string]$Module = "zaraat-dost", [string]$Source = "Adilmunawar/ZD-claude-plugin")
+param([string]$Module = "zaraat-dost", [string]$Source = "https://github.com/Adilmunawar/ZD-claude-plugin.git")
 
 function Install-ZDToolkit {
   param([string]$Module, [string]$Source)

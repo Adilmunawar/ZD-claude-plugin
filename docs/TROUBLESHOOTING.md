@@ -2,6 +2,7 @@
 
 | Symptom | Cause | Fix |
 |---|---|---|
+| `SSH authentication failed` / `Permission denied (publickey)` when adding the marketplace | Claude Code cloned `owner/repo` over SSH and no key is registered | Use the HTTPS URL: `claude plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git` (the installers do this by default) |
 | `plugin-not-found` after install | Marketplace not refreshed | `/plugin marketplace update zaraatdost` then reinstall |
 | Bundle installed but a module missing | Dependency resolution needs Claude Code ≥ 2.1.110 | Update Claude Code, or install the module directly: `/plugin install zd-gis@zaraatdost` |
 | Hooks don't run on Windows | `node` not on PATH for the shell Claude Code uses | Install Node 18+ system-wide; restart terminal; `/hooks` to confirm |

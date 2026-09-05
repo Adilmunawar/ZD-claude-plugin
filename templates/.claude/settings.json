@@ -2,8 +2,8 @@
   "extraKnownMarketplaces": {
     "zaraatdost": {
       "source": {
-        "source": "github",
-        "repo": "adilmunawar/ZD-claude-plugin"
+        "source": "git",
+        "url": "https://github.com/Adilmunawar/ZD-claude-plugin.git"
       }
     }
   },
