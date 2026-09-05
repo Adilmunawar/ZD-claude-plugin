@@ -5,17 +5,42 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions: { contents: write }
+    permissions: { contents: write, packages: write, id-token: write }
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version: 22, registry-url: "https://npm.pkg.github.com", scope: "@adilmunawar" }
       - name: Check tag matches bundle version
         run: |
           V=$(python3 -c "import json;print(json.load(open('plugins/zaraat-dost/.claude-plugin/plugin.json'))['version'])")
           T="${GITHUB_REF_NAME#v}"; case "$T" in *.*.*) ;; *.*) T="$T.0";; *) T="$T.0.0";; esac
           [ "$V" = "$T" ] || { echo "tag ${GITHUB_REF_NAME} (=$T) != bundle version $V"; exit 1; }
+          echo "VERSION=$V" >> "$GITHUB_ENV"
+      - name: Validate
+        run: bash scripts/validate.sh
+      - name: Build release assets
+        run: |
+          mkdir -p dist
+          git archive --format=zip --prefix="ZD-claude-plugin-${VERSION}/" -o "dist/ZD-claude-plugin-${VERSION}.zip" HEAD
+          (cd packages/zd-tools && npm pack --silent && mv *.tgz ../../dist/)
+          (cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt)
+      - name: Publish @adilmunawar/zd-tools to GitHub Packages
+        working-directory: packages/zd-tools
+        run: npm publish --provenance=false
+        env: { NODE_AUTH_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+      - name: Publish to npmjs (only if NPM_TOKEN secret is configured)
+        if: ${{ env.NPM_TOKEN != '' }}
+        working-directory: packages/zd-tools
+        run: |
+          npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm publish --registry https://registry.npmjs.org --access public --provenance
+        env: { NPM_TOKEN: "${{ secrets.NPM_TOKEN }}" }
       - name: Extract changelog section
         run: |
           T="${GITHUB_REF_NAME#v}"; case "$T" in *.*.*) ;; *.*) T="$T.0";; esac
           awk -v v="$T" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
+          printf '\n---\nAssets: marketplace archive for offline install, `@adilmunawar/zd-tools` tarball, SHA256SUMS.\n' >> RELEASE_NOTES.md
       - uses: softprops/action-gh-release@v3
-        with: { body_path: RELEASE_NOTES.md }
+        with:
+          body_path: RELEASE_NOTES.md
+          files: dist/*

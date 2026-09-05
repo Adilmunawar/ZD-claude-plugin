@@ -2,6 +2,13 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.0 — 2026-09-06
+
+Added
+- npm package `@adilmunawar/zd-tools` (`packages/zd-tools`): `secrets-audit`, `usage`, `budget-check`, `upgrade`, `guard-bash`, `guard-write` runnable with `npx` in terminals and CI without Claude Code. Zero dependencies; built from the plugin scripts at publish time so it cannot drift.
+- Release workflow now validates, publishes the package to GitHub Packages (and npmjs when `NPM_TOKEN` is set), and attaches the marketplace archive, package tarball and SHA-256 sums to the GitHub Release for offline installs.
+- README: Zaraat Dost logo (theme-aware), Claude Code badge, six use-case walkthroughs, dependency map, FAQ.
+
 ## 7.2.0 — 2026-09-06
 
 Changed

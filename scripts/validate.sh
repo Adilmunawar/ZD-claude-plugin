@@ -14,6 +14,8 @@ echo "== python tests"
 if python3 -c "import pytest" 2>/dev/null; then python3 -m pytest -q tests/; else python3 -c "
 import importlib.util,sys; spec=importlib.util.spec_from_file_location('t','tests/test_repo.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 [getattr(m,n)() for n in dir(m) if n.startswith('test_')]; print('ok (pytest not installed; ran directly)')"; fi
+echo "== npm package"
+node scripts/build-package.js && node packages/zd-tools/bin/zd-tools.js --version >/dev/null && echo ok
 echo "== upgrade plan (dry run)"
 node plugins/zaraat-dost/scripts/upgrade.js --dry-run >/dev/null && echo ok
 echo "== docs"

@@ -15,7 +15,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![platforms](https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-lightgrey)
 
-One install · 14 modules · 41 commands · 12 agents · tested hooks · verified against the Claude Code CLI
+One install · 14 modules · 41 commands · 12 agents · npm package · tested hooks · verified against the Claude Code CLI
 
 [Quick start](#quick-start) · [Use cases](#use-cases) · [Modules](#modules) · [How it behaves](#how-it-behaves) · [Docs](#documentation)
 
@@ -180,6 +180,18 @@ flowchart LR
 | **Upgrades itself** | A session-start check announces new releases; `/zaraat-dost:upgrade` updates every module and applies migration notes. |
 | **Rolls out at any scale** | Per-repository settings, per-machine managed settings, or account-level pinning — [docs/GOVERNANCE.md](docs/GOVERNANCE.md). |
 
+## Standalone tools (no Claude Code required)
+
+The same scripts the plugins run are published as an npm package for terminals and CI:
+
+```bash
+npx @adilmunawar/zd-tools secrets-audit . --history    # CI gate: exit 1 on committed credentials
+npx @adilmunawar/zd-tools usage week --by project      # Claude Code usage from local transcripts
+npx @adilmunawar/zd-tools upgrade                      # update the toolkit
+```
+
+Published to GitHub Packages on every release, with the marketplace archive and SHA-256 sums attached to the [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases) for offline or air-gapped installs. Package details: [packages/zd-tools](packages/zd-tools/README.md).
+
 ## Verified
 
 Every release is exercised against the real Claude Code CLI before it is tagged — official validator on all 15 plugins, marketplace add, bundle install with dependency resolution, component inventory, hooks executed exactly as Claude Code invokes them, a simulated upgrade, 18 node tests, structure tests and a secrets audit of this repository. The log of the last run is in [docs/VERIFICATION.md](docs/VERIFICATION.md).
@@ -216,7 +228,7 @@ bash scripts/validate.sh      # manifests, hook syntax, node + python tests, doc
 python3 scripts/gen-docs.py   # regenerate docs/COMMANDS.md
 ```
 
-Releases: bump every `plugin.json` to the same version, add a CHANGELOG section, tag `vX.Y.Z` (or `vX.Y`), push the tag — the workflow publishes the release.
+Releases: bump every `plugin.json` and `packages/zd-tools/package.json` to the same version (a test enforces it), add a CHANGELOG section, tag `vX.Y.Z` (or `vX.Y`), push the tag — the workflow validates, publishes the npm package, and attaches the archive and checksums to the GitHub Release.
 
 ---
 

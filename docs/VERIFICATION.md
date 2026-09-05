@@ -1,6 +1,6 @@
 # Verification log
 
-Run before each release against a clean environment. Last run: 2026-09-06 (v7.2.0), Claude Code 2.1.261, Node 22, Ubuntu 24.
+Run before each release against a clean environment. Last run: 2026-09-06 (v7.3.0), Claude Code 2.1.261, Node 22, Ubuntu 24.
 
 | Step | Command | Result |
 |---|---|---|
@@ -16,6 +16,7 @@ Run before each release against a clean environment. Last run: 2026-09-06 (v7.2.
 | Context cost | sum of `details` always-on figures | 4,960 → 3,138 tokens after description trimming (−37 %), zd-usage included |
 | Frontmatter extensions | `argument-hint`, `context: fork`, `allowed-tools`, `paths` on the relevant skills | accepted by the validator and listed by `details`; `details` does not model `paths` activation, so the context saving is confirmed only via `/context` in a live session |
 | Secrets audit | `node plugins/zd-core/scripts/secrets-audit.js . --history --ignore=tests` | no findings |
+| npm package |  in packages/zd-tools, install the tarball into a temp project, run every subcommand via  | version, help, secrets-audit, usage, upgrade --dry-run, guard-bash exit 2 all correct |
 | Installer | `bash install.sh --source ./ZD-claude-plugin` on a clean profile | marketplace added, bundle installed |
 
 Not covered here (needs an authenticated session): skill invocation output quality, agent behaviour. Those are reviewed manually on each module change.

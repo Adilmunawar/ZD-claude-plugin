@@ -48,6 +48,9 @@ or manually:
 ```
 Modules are version-pinned by the bundle (`^0.6.0`); a new bundle release moves them together.
 
+## Offline / air-gapped install
+Download `ZD-claude-plugin-<version>.zip` and `SHA256SUMS.txt` from the release page, verify, unzip, then `claude plugin marketplace add ./ZD-claude-plugin-<version>` and install as usual.
+
 ## Uninstall
 `/plugin uninstall zaraat-dost@zaraatdost` (modules remain unless removed too) or `/plugin marketplace remove zaraatdost` to remove everything.
 

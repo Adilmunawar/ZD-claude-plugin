@@ -25,6 +25,7 @@ def test_marketplace_entries_resolve():
 
 def test_versions_aligned():
     vers = {json.load(open(f))["name"]: json.load(open(f))["version"] for f in glob.glob(f"{ROOT}/plugins/*/.claude-plugin/plugin.json")}
+    vers["@adilmunawar/zd-tools"] = json.load(open(f"{ROOT}/packages/zd-tools/package.json"))["version"]
     assert len(set(vers.values())) == 1, vers
 
 def test_skills_and_agents_frontmatter():
@@ -48,7 +49,7 @@ def test_no_internal_secrets_or_names():
     bad = re.compile(r"hf_[A-Za-z0-9]{30,}|ghp_[A-Za-z0-9]{36}|BEGIN PRIVATE KEY|agis-\d{6}|aoserv\.com", re.I)
     for f in glob.glob(f"{ROOT}/**/*", recursive=True):
         rel = os.path.relpath(f, ROOT)
-        if rel.startswith("tests/") or rel.endswith("patterns.js") or rel.endswith(".zip"):
+        if rel.startswith(("tests/", "packages/zd-tools/lib/", "packages/zd-tools/node_modules/")) or rel.endswith("patterns.js") or rel.endswith(".zip"):
             continue  # test fixtures and the detection patterns legitimately contain the shapes
         if os.path.isfile(f) and ".git/" not in f:
             txt = open(f, encoding="utf-8", errors="ignore").read()

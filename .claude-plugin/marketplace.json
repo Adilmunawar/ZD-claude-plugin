@@ -1,12 +1,12 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "zaraatdost",
-  "version": "7.2.0",
+  "version": "7.3.0",
   "owner": {
     "name": "Zaraat Dost (Pvt.) Limited",
     "url": "https://github.com/adilmunawar"
   },
-  "description": "Claude Plugins for Zaraat Dost \u2014 agents, skills and guardrails for agricultural geospatial engineering: GIS, remote sensing, Earth Engine, Next.js and mobile apps, deployment",
+  "description": "Claude Plugins for Zaraat Dost — agents, skills and guardrails for agricultural geospatial engineering: GIS, remote sensing, Earth Engine, Next.js and mobile apps, deployment",
   "plugins": [
     {
       "name": "zaraat-dost",
@@ -26,7 +26,7 @@
     },
     {
       "name": "zd-core",
-      "displayName": "Zaraat Dost \u00b7 Core",
+      "displayName": "Zaraat Dost · Core",
       "source": "./plugins/zd-core",
       "description": "Guardrails (Node hooks), secrets audit, stack detection, onboarding, handoff, output style",
       "category": "geospatial",
@@ -41,9 +41,9 @@
     },
     {
       "name": "zd-gis",
-      "displayName": "Zaraat Dost \u00b7 GIS",
+      "displayName": "Zaraat Dost · GIS",
       "source": "./plugins/zd-gis",
-      "description": "Spatial database study and management, dashboards, layer publishing \u2014 Python or .NET",
+      "description": "Spatial database study and management, dashboards, layer publishing — Python or .NET",
       "category": "geospatial",
       "tags": [
         "module"
@@ -56,7 +56,7 @@
     },
     {
       "name": "zd-vector",
-      "displayName": "Zaraat Dost \u00b7 Vector",
+      "displayName": "Zaraat Dost · Vector",
       "source": "./plugins/zd-vector",
       "description": "Raster-to-parcel vectorisation, topology repair, junction straightening, road subtraction, gap analysis",
       "category": "geospatial",
@@ -71,7 +71,7 @@
     },
     {
       "name": "zd-models",
-      "displayName": "Zaraat Dost \u00b7 Models",
+      "displayName": "Zaraat Dost · Models",
       "source": "./plugins/zd-models",
       "description": "End-to-end cadastral and land-use pipeline: boundary inference, spectral features, classification, sub-parcelling, SAM2",
       "category": "geospatial",
@@ -86,7 +86,7 @@
     },
     {
       "name": "zd-ml",
-      "displayName": "Zaraat Dost \u00b7 ML",
+      "displayName": "Zaraat Dost · ML",
       "source": "./plugins/zd-ml",
       "description": "Segmentation training conventions, pre-flight bug checks, Colab patterns, model cards",
       "category": "geospatial",
@@ -101,7 +101,7 @@
     },
     {
       "name": "zd-gee",
-      "displayName": "Zaraat Dost \u00b7 Earth Engine",
+      "displayName": "Zaraat Dost · Earth Engine",
       "source": "./plugins/zd-gee",
       "description": "Authentication, export limits, Sentinel-1/2 composites, index time series, harvest detection",
       "category": "geospatial",
@@ -116,7 +116,7 @@
     },
     {
       "name": "zd-agis",
-      "displayName": "Zaraat Dost \u00b7 AGIS Web",
+      "displayName": "Zaraat Dost · AGIS Web",
       "source": "./plugins/zd-agis",
       "description": "Next.js + Firebase + Earth Engine dashboard conventions: cadastral schema, GEE API routes, Pyodide workers, inference backend",
       "category": "geospatial",
@@ -131,7 +131,7 @@
     },
     {
       "name": "zd-mobile",
-      "displayName": "Zaraat Dost \u00b7 Mobile",
+      "displayName": "Zaraat Dost · Mobile",
       "source": "./plugins/zd-mobile",
       "description": "Expo / React Native farmer-app rules: RTL i18n, API envelope contract, secure storage, release checks",
       "category": "geospatial",
@@ -146,7 +146,7 @@
     },
     {
       "name": "zd-deploy",
-      "displayName": "Zaraat Dost \u00b7 Deploy",
+      "displayName": "Zaraat Dost · Deploy",
       "source": "./plugins/zd-deploy",
       "description": "Local vs cloud profiles (Firebase App Hosting, Vercel, Hugging Face Spaces, EAS, Docker on AWS), pre-flight and rollback",
       "category": "geospatial",
@@ -161,7 +161,7 @@
     },
     {
       "name": "zd-reports",
-      "displayName": "Zaraat Dost \u00b7 Reports",
+      "displayName": "Zaraat Dost · Reports",
       "source": "./plugins/zd-reports",
       "description": "Deliverable memos, harvest reports, layer metadata",
       "category": "geospatial",
@@ -176,7 +176,7 @@
     },
     {
       "name": "zd-quality",
-      "displayName": "Zaraat Dost \u00b7 Quality",
+      "displayName": "Zaraat Dost · Quality",
       "source": "./plugins/zd-quality",
       "description": "Code review standards, conventional commits, PR descriptions, changelog generation, architecture decision records, tech-debt audits",
       "category": "engineering",
@@ -189,7 +189,7 @@
     },
     {
       "name": "zd-security",
-      "displayName": "Zaraat Dost \u00b7 Security",
+      "displayName": "Zaraat Dost · Security",
       "source": "./plugins/zd-security",
       "description": "Security review for Next.js/Flask/.NET/Expo, dependency and licence audits, branch protection, repository hardening templates",
       "category": "engineering",
@@ -202,7 +202,7 @@
     },
     {
       "name": "zd-ops",
-      "displayName": "Zaraat Dost \u00b7 Ops",
+      "displayName": "Zaraat Dost · Ops",
       "source": "./plugins/zd-ops",
       "description": "Incident response, runbooks, postmortems, observability conventions, on-call hand-over",
       "category": "engineering",
@@ -215,7 +215,7 @@
     },
     {
       "name": "zd-usage",
-      "displayName": "Zaraat Dost \u00b7 Usage",
+      "displayName": "Zaraat Dost · Usage",
       "source": "./plugins/zd-usage",
       "description": "Usage monitoring: session ledger, reports by project/model/week, budgets, team export",
       "category": "engineering",

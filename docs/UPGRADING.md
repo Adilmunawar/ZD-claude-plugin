@@ -2,6 +2,9 @@
 
 Run `/zaraat-dost:upgrade`; it applies the steps below for every version you cross. Versions not listed need no manual action.
 
+## 7.2.0 → 7.3.0
+- No plugin changes. New optional npm package `@adilmunawar/zd-tools`; releases now carry downloadable assets.
+
 ## 0.7.0 → 7.2.0
 - Version number only. Run `/zaraat-dost:upgrade`; the update check treats 7.2.0 as newer than 0.7.0.
 
