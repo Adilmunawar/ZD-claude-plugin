@@ -8,7 +8,10 @@ B=$'\033[1m'; G=$'\033[32m'; Y=$'\033[33m'; R=$'\033[31m'; N=$'\033[0m'
 echo "${B}Claude Plugins for Zaraat Dost — installer${N}"
 command -v node >/dev/null || { echo "${R}Node.js not found.${N} Install Node 18+ from https://nodejs.org and re-run."; exit 1; }
 command -v claude >/dev/null || { echo "${Y}Claude Code not found — installing (npm i -g @anthropic-ai/claude-code)${N}"; npm i -g @anthropic-ai/claude-code; }
-echo "${G}ok${N} node $(node --version)   ${G}ok${N} $(claude --version 2>/dev/null | head -1)"
+CV=$(claude --version 2>/dev/null | head -1)
+echo "${G}ok${N} node $(node --version)   ${G}ok${N} ${CV}"
+CVN=$(echo "$CV" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+if [ -n "$CVN" ] && [ "$(printf '%s\n2.1.110\n' "$CVN" | sort -V | head -1)" != "2.1.110" ]; then echo "${Y}Claude Code $CVN is older than 2.1.110; dependencies may not auto-install. Update: npm i -g @anthropic-ai/claude-code${N}"; fi
 echo "adding marketplace ${SOURCE}"
 if ! claude plugin marketplace add "${SOURCE}" >/dev/null 2>&1; then claude plugin marketplace update zaraatdost >/dev/null; fi
 echo "installing ${MODULE}@zaraatdost"

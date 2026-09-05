@@ -2,6 +2,18 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.1 — 2026-09-06
+
+Fixed
+- `install.ps1` no longer calls `exit`, which closed the PowerShell window when run via `irm … | iex` and hid the error; each step now reports `[ok]`/`[x]`.
+- Installers, README, templates and the bundle README use the HTTPS repository URL; `owner/repo` shorthand resolved to SSH on machines where `gh` had chosen SSH, and failed without keys.
+- Installers warn when Claude Code is older than 2.1.110 (dependency auto-install).
+- `usage-report` shows readable project names for Windows-encoded transcript directories.
+
+Added
+- CI now runs the Node tests, the package build and the PowerShell syntax check on Windows and macOS as well as Linux.
+- Structure tests that fail if shorthand marketplace sources, `exit` in the PowerShell installer, or unquoted `${CLAUDE_PLUGIN_ROOT}` paths ever return.
+
 ## 7.3.0 — 2026-09-06
 
 Added

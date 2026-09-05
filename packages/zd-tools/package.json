@@ -1,17 +1,40 @@
 {
   "name": "@adilmunawar/zd-tools",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Zaraat Dost engineering tools from the Claude Code toolkit, usable without Claude Code: secrets audit (tree + git history), Claude usage reports and budgets, plugin upgrade. Zero dependencies.",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/Adilmunawar/ZD-claude-plugin.git", "directory": "packages/zd-tools" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adilmunawar/ZD-claude-plugin.git",
+    "directory": "packages/zd-tools"
+  },
   "homepage": "https://github.com/Adilmunawar/ZD-claude-plugin/tree/main/packages/zd-tools",
   "bugs": "https://github.com/Adilmunawar/ZD-claude-plugin/issues",
   "author": "Zaraat Dost ML/GIS team",
-  "keywords": ["secrets", "audit", "git-history", "claude-code", "usage", "tokens", "gis", "zaraat-dost"],
-  "bin": { "zd-tools": "bin/zd-tools.js" },
-  "files": ["bin/", "lib/", "README.md"],
-  "engines": { "node": ">=18" },
-  "publishConfig": { "access": "public" },
+  "keywords": [
+    "secrets",
+    "audit",
+    "git-history",
+    "claude-code",
+    "usage",
+    "tokens",
+    "gis",
+    "zaraat-dost"
+  ],
+  "bin": {
+    "zd-tools": "bin/zd-tools.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepack": "node ../../scripts/build-package.js",
     "test": "node bin/zd-tools.js --help"

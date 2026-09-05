@@ -2,7 +2,7 @@
   "name": "zd-quality",
   "displayName": "Zaraat Dost · Quality",
   "description": "Code review standards, conventional commits, PR descriptions, changelog generation, architecture decision records, tech-debt audits",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

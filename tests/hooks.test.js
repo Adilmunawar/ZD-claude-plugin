@@ -31,6 +31,14 @@ test("guard-bash exit codes", () => {
   assert.equal(r.status, 2); assert.match(r.stderr, /destructive SQL/);
 });
 
+test("hook commands are quoted and use only node (Windows-safe)", () => {
+  const fs = require("fs"), glob = require("path").join(__dirname, "..", "plugins");
+  for (const p of fs.readdirSync(glob)) {
+    const h = require("path").join(glob, p, "hooks", "hooks.json"); if (!fs.existsSync(h)) continue;
+    for (const entries of Object.values(JSON.parse(fs.readFileSync(h, "utf8")).hooks)) for (const e of entries) for (const hk of e.hooks)
+      assert.match(hk.command, /^node "\$\{CLAUDE_PLUGIN_ROOT\}\/scripts\/[a-z-]+\.js"$/, `${p}: ${hk.command}`);
+  }
+});
 test("guard-write refuses secret file paths on any OS", () => {
   for (const p of [".env", ".env.production", "C:\\proj\\gee.json", "keys/agis-ee-key.json", "certs/server.pem", "a/b/service-account.json", "id_rsa"])
     assert.ok(write.check(p, "{}"), `should refuse path: ${p}`);

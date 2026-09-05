@@ -1,7 +1,7 @@
 {
   "name": "zd-usage",
   "displayName": "Zaraat Dost · Usage",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Claude usage monitoring: per-session ledger, daily/weekly/monthly reports by project and model, budgets with session-start warnings, team CSV export and merge",
   "author": {
     "name": "Zaraat Dost ML/GIS team",

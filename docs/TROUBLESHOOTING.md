@@ -5,6 +5,8 @@
 | `SSH authentication failed` / `Permission denied (publickey)` when adding the marketplace | Claude Code cloned `owner/repo` over SSH and no key is registered | Use the HTTPS URL: `claude plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git` (the installers do this by default) |
 | `plugin-not-found` after install | Marketplace not refreshed | `/plugin marketplace update zaraatdost` then reinstall |
 | Bundle installed but a module missing | Dependency resolution needs Claude Code ≥ 2.1.110 | Update Claude Code, or install the module directly: `/plugin install zd-gis@zaraatdost` |
+| PowerShell window closes while installing | An old installer called `exit` under `iex` | Fixed in 7.3.1; run `irm … | iex` again, or the three manual commands in INSTALL.md |
+| `claude plugin list` says no plugins after an install attempt | The earlier attempt failed before installing | Run the installer again; it now reports each step |
 | Hooks don't run on Windows | `node` not on PATH for the shell Claude Code uses | Install Node 18+ system-wide; restart terminal; `/hooks` to confirm |
 | "blocked destructive SQL" when you meant it | zd-core guard | Confirm a backup, then run the command yourself in a terminal, or temporarily disable the hook via `/hooks` |
 | `Run /reload-plugins to activate` | Normal after install | Run it |

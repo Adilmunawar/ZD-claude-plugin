@@ -1,6 +1,23 @@
 name: validate
 on: [push, pull_request]
 jobs:
+  cross-platform:
+    strategy:
+      fail-fast: false
+      matrix: { os: [windows-latest, macos-latest] }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version: 22 }
+      - name: Node tests (hooks, audit, usage, upgrade)
+        run: node --test tests/hooks.test.js tests/secrets-audit.test.js tests/usage.test.js tests/upgrade.test.js tests/check-update.test.js
+      - name: Package builds and runs
+        run: node scripts/build-package.js && node packages/zd-tools/bin/zd-tools.js --version && node packages/zd-tools/bin/zd-tools.js secrets-audit . --ignore=tests,packages
+      - name: PowerShell installer parses
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: $null = [scriptblock]::Create((Get-Content -Raw install.ps1)); "install.ps1 syntax ok"
   validate:
     runs-on: ubuntu-latest
     steps:

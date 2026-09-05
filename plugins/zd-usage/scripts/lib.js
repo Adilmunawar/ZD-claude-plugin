@@ -45,7 +45,11 @@ function parseTranscript(file) {
   }
   return out;
 }
-function projectNameFromDir(dir) { return path.basename(dir).replace(/^-+/, "").replace(/-/g, "/"); }
+function projectNameFromDir(dir) {
+  // Claude Code encodes the project path: /home/a/proj -> -home-a-proj ; C:\Users\a\proj -> C--Users-a-proj
+  let n = path.basename(dir).replace(/^([A-Za-z])--/, "$1:/").replace(/^-+/, "").replace(/-/g, "/");
+  return n.split("/").filter(Boolean).slice(-2).join("/") || n;   // last two segments: enough to recognise, short enough to tabulate
+}
 /** Scan all transcripts. Returns rows {project, day, model, usage}. */
 function scanTranscripts(root = PROJECTS) {
   const rows = [];

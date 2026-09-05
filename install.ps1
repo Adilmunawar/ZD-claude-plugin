@@ -29,7 +29,12 @@ function Install-ZDToolkit {
     $claude = Get-Command claude -ErrorAction SilentlyContinue
     if (-not $claude) { Write-Host "[x] Claude Code installed but not on PATH yet. Close and reopen PowerShell, then run this again." -ForegroundColor Red; return }
   }
-  Write-Host ("[ok] " + ((& claude --version) | Select-Object -First 1)) -ForegroundColor Green
+  $cv = ((& claude --version) | Select-Object -First 1)
+  Write-Host ("[ok] " + $cv) -ForegroundColor Green
+  if ($cv -match '(\d+)\.(\d+)\.(\d+)') {
+    $v = [version]("{0}.{1}.{2}" -f $Matches[1], $Matches[2], $Matches[3])
+    if ($v -lt [version]"2.1.110") { Write-Host "[!] Claude Code $v is older than 2.1.110; the bundle's dependencies may not auto-install. Update: npm install -g @anthropic-ai/claude-code" -ForegroundColor Yellow }
+  }
 
   # 3. Marketplace
   Write-Host "[..] Adding marketplace $Source"

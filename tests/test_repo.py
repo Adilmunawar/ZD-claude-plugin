@@ -64,6 +64,21 @@ def test_command_skills_have_hints_and_fork_skills_have_tools():
             assert fm["paths"].strip().startswith("[") and fm["paths"].strip().endswith("]"), f"{f}: paths must be a YAML list"
             assert "disable-model-invocation" not in fm, f"{f}: paths only makes sense for auto-activated skills"
 
+def test_environment_assumptions():
+    """Things that broke on a real Windows machine or would: shorthand marketplace sources, exit under iex, unquoted plugin paths."""
+    for f in ["README.md", "docs/INSTALL.md", "install.sh", "install.ps1", "plugins/zaraat-dost/README.md"]:
+        txt = open(f"{ROOT}/{f}", encoding="utf-8").read()
+        assert "marketplace add Adilmunawar/ZD-claude-plugin" not in txt, f"{f}: use the HTTPS URL, owner/repo shorthand may resolve to SSH"
+    ps1 = open(f"{ROOT}/install.ps1", encoding="utf-8").read()
+    assert not re.search(r"^\s*exit\b", ps1, re.M), "install.ps1 must not call exit (closes the window under iex)"
+    for f in glob.glob(f"{ROOT}/plugins/**/*.md", recursive=True) + glob.glob(f"{ROOT}/plugins/*/hooks/hooks.json"):
+        txt = open(f, encoding="utf-8").read()
+        assert not re.search(r'node\s+\$\{CLAUDE_PLUGIN_ROOT\}', txt), f"{f}: node ${{CLAUDE_PLUGIN_ROOT}}/... must be double-quoted (paths with spaces)"
+    for f in glob.glob(f"{ROOT}/templates/**/*.json", recursive=True):
+        d = json.load(open(f))
+        for name, m in (d.get("extraKnownMarketplaces") or {}).items():
+            s = m["source"]; assert s["source"] in ("git", "url") and s.get("url", "").startswith("https://"), f"{f}: marketplace {name} must use an https git url"
+
 def test_docs_current():
     r = subprocess.run([sys.executable, f"{ROOT}/scripts/gen-docs.py", "--check"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
