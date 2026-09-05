@@ -1,7 +1,8 @@
 ---
 name: handoff
-description: Write a concise session handoff document so a colleague or a fresh Claude session can continue the work without re-reading the conversation.
 disable-model-invocation: true
+argument-hint: "[slug]"
+description: Write a session hand-over document so a colleague or a fresh session can continue without the transcript.
 ---
 
 Write `docs/handoffs/<YYYY-MM-DD>-<slug>.md` (create the folder if needed) with exactly these sections, each ≤ 10 bullets:

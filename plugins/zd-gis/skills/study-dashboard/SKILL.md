@@ -1,7 +1,10 @@
 ---
 name: study-dashboard
-description: Audit an existing GIS dashboard — pages, layers, data sources, endpoints, performance and UX issues — and write docs/DASHBOARD.md. Use when taking over a dashboard or before a redesign.
 disable-model-invocation: true
+argument-hint: "[path]"
+context: fork
+allowed-tools: Read, Grep, Glob, Bash, Write
+description: Audit an existing GIS dashboard (pages, layers, endpoints, freshness, performance, UX) into docs/DASHBOARD.md.
 ---
 
 Run `stack-detect`, then map the dashboard:

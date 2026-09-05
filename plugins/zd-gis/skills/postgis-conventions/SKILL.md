@@ -1,6 +1,6 @@
 ---
 name: postgis-conventions
-description: Conventions for spatial tables — naming, SRID, indexes, area calculation, ingest validation, safe migrations — for Postgres/PostGIS with equivalents for SQL Server and GeoPackage. Apply whenever writing SQL, migrations or ORM models that touch geometry columns.
+description: Spatial table rules: naming, SRID, indexes, area in UTM, ingest validation, safe migrations. PostGIS with SQL Server and GeoPackage equivalents. Apply to any SQL, migration or ORM model with geometry.
 ---
 
 # Spatial table conventions

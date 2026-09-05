@@ -1,6 +1,6 @@
 ---
 name: study-db
-description: Catalog queries and checks for studying a database — Postgres/PostGIS, SQL Server, MySQL, SQLite/GeoPackage. Apply when documenting a schema, finding spatial columns, auditing indexes or diagnosing slow spatial queries. Read-only.
+description: Read-only catalog queries for Postgres/PostGIS, SQL Server, MySQL, GeoPackage: spatial columns, indexes, sizes, FKs, slow spatial queries. Apply when documenting or diagnosing a database.
 ---
 
 # Study a database (read-only)

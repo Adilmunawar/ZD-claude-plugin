@@ -1,7 +1,8 @@
 ---
 name: ndvi-timeseries
-description: Per-parcel NDVI (and other index) time series extraction from Sentinel-2 in GEE, gap-filled and smoothed, exported as a table. Use for phenology, harvest detection, anomaly monitoring.
 disable-model-invocation: true
+argument-hint: "<parcel-asset-or-file> <start> <end> [index]"
+description: Per-parcel index time series from Sentinel-2, gap-filled and smoothed, exported as a table.
 ---
 
 1. Inputs: parcel asset id, date range, index (NDVI default), step (5 days).

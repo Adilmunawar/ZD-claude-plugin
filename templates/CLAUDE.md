@@ -1,25 +1,31 @@
 # <Project name>
 
-<One paragraph: what this repo is (dashboard / pipeline / model), who uses it, where it runs.>
+<Two sentences: what this repository is, who uses it, where it runs.>
 
 ## Stack
-- Database: <PostGIS 15 on ... / GeoPackage in data/>
-- Dashboard: <ASP.NET Core + Leaflet / Blazor / Streamlit / Dash / ...>
-- Tile/feature service: <pg_tileserv / GeoServer / none>
-- Runtime: <.NET 8 / Python 3.11 conda env>; run with `<command>`
-- Data root: `data/` (raw), `data/processed/`, `deliverables/`
+- Runtime: <Node 20 / Python 3.11 / .NET 8 / Expo SDK 5x>
+- Framework: <Next.js 14 App Router / Flask / ASP.NET Core / expo-router>
+- Data: <Firestore + Storage / PostGIS / GeoPackage in data/>
+- External: <Earth Engine project via EE_BASE64_KEY / Hugging Face Space / API base URL>
+- Hosting: <Firebase App Hosting / Vercel / HF Spaces / VM / AWS ECS>
+
+## Run
+```
+<install>
+<dev server>
+<typecheck / tests>
+```
+
+## Data and layout
+- Storage CRS EPSG:4326; area computed in EPSG:32642/32643.
+- Working directories: `working_directory/{input,output}` for pipeline stages; `deliverables/<client>/` for outputs.
 
 ## Conventions
-- Follow the zd-* plugin skills (`stack-detect`, `postgis-conventions`, `pakistan-crs`).
-- Storage CRS is EPSG:4326; area in EPSG:32642 unless stated.
-- Never commit `.env`, `gee.json`, service-account keys, or files > 50 MB (use DVC / drive links).
-- Deliverables go to `deliverables/<client>/<layer>_<YYYYMMDD>.{shp,geojson}` and must pass `/zd-gis:qa-vector`.
-
-## How to run
-```
-<setup and run commands>
-```
+- Follow the zd-* skills (stack-detect, postgis-conventions, pakistan-crs, agis-architecture, app-rules as applicable).
+- Secrets only via environment variables or the platform's secret store; `.env`, key files and tokens are never committed.
+- Deliverables must pass `/zd-gis:qa-vector` before hand-over.
 
 ## Don'ts
-- No schema changes to production tables without a migration file.
-- No `DROP`/`TRUNCATE` without a `_bak_` copy and explicit approval.
+- No `DROP`/`TRUNCATE`/recursive delete without a backup and explicit approval.
+- No renaming of server DTO fields on the client.
+- No hardcoded fallback credentials.

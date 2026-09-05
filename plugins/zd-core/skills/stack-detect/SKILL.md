@@ -1,6 +1,6 @@
 ---
 name: stack-detect
-description: Detect the project's language, framework, database, spatial libraries and dashboard/tile stack from files in the repo. Apply automatically at the start of any task that touches the database, the dashboard, or deployment; also invoked by /zd-core:onboard.
+description: Detect language, framework, database, spatial libraries and tile stack from repo files before DB, dashboard or deploy work. Python, .NET, Node/Next.js, Expo.
 ---
 
 # Stack detection

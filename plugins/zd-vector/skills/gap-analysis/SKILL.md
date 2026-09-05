@@ -1,7 +1,8 @@
 ---
 name: gap-analysis
-description: Compare a digitised/mapped parcel layer against an AOI or reference layer to find missing coverage, quantify it, and produce a "missing" layer and summary. Use for coverage QA, "what's not mapped yet", or comparing two versions of a layer.
 disable-model-invocation: true
+argument-hint: "<mapped.gpkg> <aoi-or-previous.gpkg>"
+description: Compare a mapped parcel layer with an AOI or previous version: missing layer, coverage summary, added/removed/changed parcels.
 ---
 
 Inputs: mapped layer A, AOI/reference layer B (or a second version A′). Work in UTM.

@@ -1,6 +1,6 @@
 ---
 name: train-template
-description: Reference structure for a PyTorch segmentation training/fine-tuning script with resume, early stopping, cosine annealing, AMP and full-state checkpoints. Use when writing or refactoring a training script.
+description: Structure for a PyTorch segmentation training script: resume, early stopping, cosine LR, AMP, full-state checkpoints, tiled inference.
 ---
 
 # Training script template (structure, not boilerplate to paste blindly)

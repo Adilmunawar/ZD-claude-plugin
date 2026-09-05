@@ -1,6 +1,6 @@
 ---
 name: colab-ram-safe
-description: Patterns for running imagery pipelines in Google Colab or other RAM-limited environments — streaming downloads, windowed reads, patch extraction to disk, checkpoint resume, Drive mounting. Apply when a notebook crashes with OOM or a session may time out.
+description: Patterns for RAM-limited notebooks: windowed reads, patch shards, progress files, Drive checkpoints.
 ---
 
 - Mount Drive once; keep datasets on Drive as COGs/parquet; copy the *current* tile to `/content` only.

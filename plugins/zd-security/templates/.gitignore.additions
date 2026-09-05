@@ -1,0 +1,12 @@
+# credentials and keys — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.p12
+*.key
+gee.json
+*ee-key*.json
+*service-account*.json
+appsettings.Production.json

@@ -27,6 +27,9 @@ The install view asks for a scope — pick **user** to have it in every project.
 ## Option C — per-repository, zero commands for teammates
 Run `/zaraat-dost:setup` once in the repo (or copy `templates/.claude/settings.json` to `.claude/settings.json`) and commit. Anyone who opens the repo and trusts the folder gets the marketplace and bundle automatically.
 
+## New machine
+Run `/zaraat-dost:workstation` (or `plugins/zaraat-dost/scripts/setup-workstation.ps1` / `.sh` directly) to install Git, Node, Python GIS stack, .NET SDK, GitHub CLI, VS Code extensions and Claude Code.
+
 ## Verify
 ```
 /zaraat-dost:doctor
@@ -34,11 +37,16 @@ Run `/zaraat-dost:setup` once in the repo (or copy `templates/.claude/settings.j
 ```
 
 ## Update
+A session-start check tells you within a day when a newer release exists. Then:
+```
+/zaraat-dost:upgrade
+```
+or manually:
 ```
 /plugin marketplace update zaraatdost
 /plugin update zaraat-dost@zaraatdost
 ```
-Modules are version-pinned by the bundle (`^0.3.0`); a new bundle release moves them together.
+Modules are version-pinned by the bundle (`^0.6.0`); a new bundle release moves them together.
 
 ## Uninstall
 `/plugin uninstall zaraat-dost@zaraatdost` (modules remain unless removed too) or `/plugin marketplace remove zaraatdost` to remove everything.

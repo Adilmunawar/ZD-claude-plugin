@@ -1,6 +1,6 @@
 ---
 name: seg-preflight
-description: Pre-flight checklist that catches the common bugs in satellite segmentation pipelines — checkpoint format mismatches, shared dataset references in augmentation, split leakage, CRS/nodata handling, class imbalance. Apply before any training or fine-tuning run and when a model "trains but predicts garbage".
+description: Ten-point checklist that catches common segmentation-pipeline bugs (checkpoint keys, shared dataset refs, split leakage, nodata, class balance). Apply before any training run or when predictions are garbage.
 ---
 
 # Segmentation pre-flight

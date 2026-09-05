@@ -10,6 +10,8 @@
 | Private fork: auto-update fails in background | Background pulls skip credential helpers | `gh auth setup-git`; set `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1`; or update manually with `/plugin marketplace update zaraatdost` |
 | Git clone times out | Slow network / large repo | `export CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS=300000` |
 | Skill command not found | Skills are namespaced | Use `/zd-gis:new-layer`, not `/new-layer`; `/zaraat-dost:help` lists all |
+| `guard-write` blocks a file that is not a secret | A string matched a credential pattern | Reference the value from an environment variable, or use an obvious placeholder (`xxxxxxxx`, `<token>`); patterns are in `zd-core/scripts/patterns.js` |
+| `secrets-audit --history` is slow | Large history | Run without `--history` for a quick check; use `--history` in CI only |
 | Agent picked wrong stack | No CLAUDE.md | `/zd-core:onboard`, then re-run |
 | `db-analyst` can't connect | No connection info discoverable | Set `DATABASE_URL` / `ConnectionStrings__Default` in the environment (never in a file Claude writes) |
 | GeoPandas import error | Env not activated | Activate the project's conda/venv before starting Claude Code |

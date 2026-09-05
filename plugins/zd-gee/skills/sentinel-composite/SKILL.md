@@ -1,6 +1,6 @@
 ---
 name: sentinel-composite
-description: Build cloud-free Sentinel-2 and speckle-filtered Sentinel-1 composites and fused stacks for crop mapping in GEE. Apply when preparing model inputs or seasonal composites.
+description: Cloud-free Sentinel-2 and speckle-filtered Sentinel-1 composites and fused stacks for crop mapping.
 ---
 
 - **S2**: `COPERNICUS/S2_SR_HARMONIZED`; mask with `s2cloudless` (`COPERNICUS/S2_CLOUD_PROBABILITY`, prob < 40) + SCL classes {3,8,9,10,11}; median composite per period (e.g. monthly or crop-stage windows); bands B2–B8, B8A, B11, B12; add NDVI, NDWI, EVI, NDRE. Scale to reflectance ÷10000.

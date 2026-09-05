@@ -1,11 +1,20 @@
 # Contributing
 
-1. Fork/branch from `main`.
-2. Put changes under `plugins/<plugin>/`: agents in `agents/*.md`, skills in `skills/<name>/SKILL.md`, hooks in `hooks/hooks.json` + `scripts/*.js` (Node only — no bash/python hooks, they break on Windows).
-3. No client names, AOI files, DB names or credentials — this repo is public. Domain knowledge (CRS, conventions) is fine.
-4. Bump `version` in the plugin's `.claude-plugin/plugin.json` (semver). Users only receive updates when it changes.
-5. `bash scripts/validate.sh`; test locally with `/plugin marketplace add ./` then `/plugin install <plugin>@zaraatdost`.
-6. `python3 scripts/gen-docs.py` (CI fails if `docs/COMMANDS.md` is stale). Add a line to `CHANGELOG.md`. Open a PR; CI must pass.
-7. Releasing: bump the bundle version, tag `vX.Y.Z`, push the tag — the release workflow publishes notes from the changelog.
+## Ground rules
+- This repository is public. It documents conventions, constants and methods; it never contains credentials, project ids, hostnames, client names or data. `tests/test_repo.py` enforces the obvious cases; review for the rest.
+- Hooks are Node.js only (no bash or Python hooks — they break on Windows) and must have a test in `tests/`.
+- One voice: short sentences, concrete numbers, no marketing adjectives. If a sentence would not help an engineer at 2 a.m., delete it.
 
-Renaming or removing a plugin? Add it to `renames` in `marketplace.json` so existing installs migrate.
+## Adding or changing a module
+1. Branch from `main`.
+2. Agents in `plugins/<module>/agents/<name>.md`, skills in `plugins/<module>/skills/<name>/SKILL.md` (`name` must equal the folder), commands set `disable-model-invocation: true`.
+3. Declare dependencies on other modules in the module's `plugin.json`.
+4. Bump `version` in **every** `plugin.json` (all modules share one version; `tests/test_repo.py` checks this).
+5. `python3 scripts/gen-docs.py` and `bash scripts/validate.sh`.
+6. Add a CHANGELOG entry. Open a PR using the template; CI must pass.
+
+## Releasing
+Tag `vX.Y.Z` matching the bundle version and push the tag; the release workflow publishes a GitHub Release with the changelog section.
+
+## Renaming or removing
+Add the old name to `renames` in `marketplace.json` so existing installs migrate.

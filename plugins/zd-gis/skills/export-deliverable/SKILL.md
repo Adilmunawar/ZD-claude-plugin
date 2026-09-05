@@ -1,7 +1,8 @@
 ---
 name: export-deliverable
-description: Produce a client-ready shapefile and GeoJSON from a layer, table or intermediate file. Use when the user says export, deliver, send to client, make shapefile, or final output.
 disable-model-invocation: true
+argument-hint: "<layer-or-table> [client]"
+description: Produce a client-ready shapefile and GeoJSON (clean, 4326, area_ha, QA-checked) from a layer or table.
 ---
 
 1. Load the layer (file, DB table, or in-memory). Confirm CRS; transform to EPSG:4326.

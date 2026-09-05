@@ -9,7 +9,9 @@ jobs:
         with: { node-version: 20 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
+      - run: pip install pytest
       - run: bash scripts/validate.sh
-      - run: python3 scripts/gen-docs.py --check
-      - name: Deep validation with Claude Code CLI (non-blocking)
+      - name: Secrets audit (this repository)
+        run: node plugins/zd-core/scripts/secrets-audit.js . --history --ignore=tests
+      - name: Claude Code plugin validation (non-blocking)
         run: npm i -g @anthropic-ai/claude-code && claude plugin validate . || true

@@ -1,6 +1,6 @@
 ---
 name: pakistan-crs
-description: Which CRS to use for Punjab/Sindh (Pakistan) work and how to reproject correctly. Apply whenever a task involves area, distance, buffering, raster alignment or a "layer in the wrong place" bug.
+description: Which CRS to use for Punjab/Sindh (4326 storage, UTM 42N/43N for area) and how to reproject. Apply to area, distance, buffer, raster alignment or wrong-location bugs.
 ---
 
 # CRS rules (Pakistan)

@@ -1,7 +1,8 @@
 ---
 name: onboard
-description: Generate or refresh a project's CLAUDE.md by inspecting the repository (stack, run commands, data layout, conventions). Use on a new repo or when CLAUDE.md is stale.
 disable-model-invocation: true
+argument-hint: "[--force]"
+description: Generate or refresh CLAUDE.md from the repository (stack, run commands, data layout, conventions).
 ---
 
 1. Run the `stack-detect` skill.

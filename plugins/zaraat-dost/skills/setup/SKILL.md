@@ -1,7 +1,7 @@
 ---
 name: setup
-description: Configure the current repository for the team — add .claude/settings.json (marketplace, enabled modules, deny rules), .gitignore entries, and generate CLAUDE.md. Use once per repo.
 disable-model-invocation: true
+description: Configure the current repository for the team: .claude/settings.json, .gitignore entries, CLAUDE.md.
 ---
 
 1. Show the user what will be created/changed, then proceed only on confirmation:

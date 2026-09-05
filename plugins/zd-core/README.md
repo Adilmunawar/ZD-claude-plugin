@@ -1,14 +1,31 @@
 # zd-core
 
-Install first. Gives every zd-* plugin a common base.
+Base module. Every other module assumes it is installed.
 
-| Component | What it does |
-|---|---|
-| `stack-detect` (skill, auto) | Identifies language, framework, DB, spatial libs, tile service — Python, .NET, Node |
-| `/zd-core:onboard` | Writes/refreshes `CLAUDE.md` from the repo |
-| `/zd-core:handoff` | Session handoff doc for a colleague or a fresh session |
-| `stack-analyst` (agent) | Read-only codebase map with Mermaid diagram and top-5 actions |
-| `zd-brief` (output style) | Terse, numbers-first replies — enable with `/output-style zd-brief` |
-| Hooks | Block destructive shell/SQL/git/EF commands; refuse to write secrets; remind to QA vector files |
+## Components
 
-Hooks are Node.js scripts (Node ships with Claude Code) so they run identically on Windows, macOS and Linux. Disable with `/hooks` if needed.
+| Component | Type | Purpose |
+|---|---|---|
+| `stack-detect` | skill, automatic | Identify language, framework, database, spatial libraries and tile service before any DB/dashboard/deploy work — Python, .NET, Node/Next.js, Expo |
+| `/zd-core:onboard` | command | Write or refresh `CLAUDE.md` from the repository |
+| `/zd-core:handoff` | command | Session hand-over document for a colleague or a fresh session |
+| `/zd-core:secrets-audit` | command | Scan tree and git history for credentials; rotation and purge checklist |
+| `stack-analyst` | agent, read-only | Map an unfamiliar codebase: architecture diagram, data flow, risks, top-5 actions |
+| `zd-brief` | output style | Terse, numbers-first replies (`/output-style zd-brief`) |
+
+## Hooks
+
+| Event | Script | Behaviour |
+|---|---|---|
+| PreToolUse · Bash | `scripts/guard-bash.js` | Blocks recursive deletes, force push, history-discarding git, `DROP`/`TRUNCATE`, `DELETE` without `WHERE`, `dotnet ef database drop`, recursive Firestore/S3 deletes |
+| PreToolUse · Write/Edit | `scripts/guard-write.js` | Refuses to write `.env`, key files, or content matching a credential pattern |
+| PostToolUse · Write/Edit | `scripts/after-write.js` | After a vector file is written, reminds Claude to run QA |
+
+Patterns live in `scripts/patterns.js` and are shared by the write guard and the audit. All scripts are plain Node with no dependencies, tested in `tests/`, and behave identically on Windows, macOS and Linux. Disable per project with `/hooks`.
+
+## Standalone use
+
+```
+node plugins/zd-core/scripts/secrets-audit.js <repo> --history
+```
+Exit code 1 when findings exist; suitable as a CI gate.

@@ -1,8 +1,8 @@
 {
   "name": "zaraat-dost",
   "displayName": "Claude Plugins for Zaraat Dost",
-  "description": "One-line install of the complete Zaraat Dost toolkit: GIS databases & dashboards, parcel vectorisation, satellite ML, Earth Engine and client reports. Installs all zd-* modules.",
-  "version": "0.3.0",
+  "description": "Complete toolkit in one install: guardrails, GIS databases and dashboards, the cadastral/land-use pipeline, satellite ML, Earth Engine, the AGIS web app, the farmer mobile app, deployment, quality, security, operations, usage monitoring and client reports.",
+  "version": "0.7.0",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -13,36 +13,70 @@
   "keywords": [
     "zaraat-dost",
     "gis",
-    "postgis",
     "remote-sensing",
     "agriculture",
     "earth-engine",
-    "dotnet"
+    "nextjs",
+    "expo",
+    "dotnet",
+    "aws"
   ],
   "dependencies": [
     {
       "name": "zd-core",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
     },
     {
       "name": "zd-gis",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
     },
     {
       "name": "zd-vector",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-models",
+      "version": "^0.7.0"
     },
     {
       "name": "zd-ml",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
     },
     {
       "name": "zd-gee",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-agis",
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-mobile",
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-deploy",
+      "version": "^0.7.0"
     },
     {
       "name": "zd-reports",
-      "version": "^0.3.0"
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-quality",
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-security",
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-ops",
+      "version": "^0.7.0"
+    },
+    {
+      "name": "zd-usage",
+      "version": "^0.7.0"
     }
   ]
 }

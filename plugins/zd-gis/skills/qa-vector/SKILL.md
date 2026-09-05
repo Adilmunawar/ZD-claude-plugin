@@ -1,7 +1,9 @@
 ---
 name: qa-vector
-description: Run the geo-data-qa checks on a vector file or table and print the report.
 disable-model-invocation: true
+argument-hint: "<file-or-table>"
+description: Run the geo-data-qa checks on a vector file or table and print the report.
+effort: low
 ---
 
-Invoke the `geo-data-qa` subagent on the file or table given as the argument (ask for a path if none). Return its report unchanged, then one line of overall advice.
+Invoke the `geo-data-qa` subagent on `$ARGUMENTS` (a file path or table name; ask if empty). Return its report unchanged, then one line of overall advice.

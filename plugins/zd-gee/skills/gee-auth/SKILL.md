@@ -1,6 +1,6 @@
 ---
 name: gee-auth
-description: Google Earth Engine authentication and project setup patterns (service account key file in Colab/servers, interactive auth on laptops, quota/project selection). Apply whenever code calls ee.Initialize or a GEE call fails with auth/permission errors.
+description: Earth Engine authentication patterns (service account via env, interactive, project id) and common auth errors.
 ---
 
 - Servers/Colab: service-account JSON (`gee.json`) referenced by env var `GEE_KEY_FILE`; `ee.ServiceAccountCredentials(email, key_file)` → `ee.Initialize(creds, project=PROJECT)`. Never commit or print the file (zd-core hooks refuse to write it).

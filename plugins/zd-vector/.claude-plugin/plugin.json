@@ -1,16 +1,19 @@
 {
   "name": "zd-vector",
-  "description": "Raster-to-vector, topology repair, edge straightening, road subtraction, gap analysis for agricultural parcel layers.",
-  "version": "0.3.0",
-  "author": {
-    "name": "Zaraat Dost ML/GIS team"
-  },
-  "license": "MIT",
-  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
-  "keywords": [
-    "gis",
-    "agriculture"
-  ],
   "displayName": "Zaraat Dost \u00b7 Vector",
-  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-vector"
+  "description": "Raster-to-parcel vectorisation, topology repair, junction straightening, road subtraction, gap analysis",
+  "version": "0.7.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-vector",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "vector"
+  ]
 }

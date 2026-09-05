@@ -1,16 +1,19 @@
 {
   "name": "zd-ml",
-  "description": "Segmentation model training conventions for satellite imagery: data pipelines, checkpoints, pre-flight bug checks, model cards.",
-  "version": "0.3.0",
-  "author": {
-    "name": "Zaraat Dost ML/GIS team"
-  },
-  "license": "MIT",
-  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
-  "keywords": [
-    "gis",
-    "agriculture"
-  ],
   "displayName": "Zaraat Dost \u00b7 ML",
-  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-ml"
+  "description": "Segmentation training conventions, pre-flight bug checks, Colab patterns, model cards",
+  "version": "0.7.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-ml",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "ml"
+  ]
 }

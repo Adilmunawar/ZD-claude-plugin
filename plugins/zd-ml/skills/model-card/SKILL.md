@@ -1,7 +1,8 @@
 ---
 name: model-card
-description: Write a model card for a trained segmentation model (data, classes, metrics, limits) next to the checkpoint and for HuggingFace.
 disable-model-invocation: true
+argument-hint: "<checkpoint-dir>"
+description: Write an HF-compatible model card (data, classes, metrics, limits) next to a checkpoint.
 ---
 
 Write `model_card.md` (HF-compatible YAML header + body):

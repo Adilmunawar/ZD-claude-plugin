@@ -1,20 +1,34 @@
 # Architecture
 
+## Modules and dependencies
+
 ```
-marketplace.json ── lists ──▶ zaraat-dost (bundle, no logic; depends on all modules)
-                             ├─ zd-core     hooks (Node) · stack-detect · onboard · handoff · stack-analyst · zd-brief
-                             ├─ zd-gis      gis-dashboard-manager · db-analyst · geo-data-qa · study-db · study-dashboard …
-                             ├─ zd-vector   vector-engineer · raster-to-polygons (+script) · topology-repair · …
-                             ├─ zd-ml       seg-trainer · seg-preflight · train-template · colab-ram-safe · model-card
-                             ├─ zd-gee      gee-auth · gee-export · sentinel-composite · ndvi-timeseries · harvest-detect
-                             └─ zd-reports  deliverable-memo · harvest-report · layer-metadata
+zaraat-dost (bundle) ──depends on──▶ all modules
+
+zd-core ◀── zd-deploy
+zd-gee  ◀── zd-agis
+zd-vector, zd-gee, zd-ml ◀── zd-models
+zd-core ◀── zd-security
+zd-deploy ◀── zd-ops
+zd-gis, zd-mobile, zd-quality, zd-usage, zd-reports  (independent)
 ```
 
-Design rules
-- **Bundle vs modules**: the bundle carries only setup/help/doctor and a session banner; all capability lives in modules so they can be installed alone and versioned together (`^x.y.z`).
-- **Stack-agnostic by discovery, not by assumption**: every agent that touches code runs `stack-detect` and prints a Stack summary before acting. Unknown → ask.
-- **Read-only vs write agents** are separate (`db-analyst`, `stack-analyst`, `geo-data-qa` have no Edit/Write tools) so studying is always safe.
-- **Guardrails are hooks, not prompts**: destructive commands and secret writes are blocked in code (`zd-core/scripts/*.js`), independent of the model's judgement. Node only, for Windows parity.
-- **Commands vs background skills**: `disable-model-invocation: true` = user-invoked slash command; otherwise Claude applies it when relevant. `docs/COMMANDS.md` is generated from the frontmatter so docs never drift.
-- **No internal data**: public repo; conventions and domain knowledge only. Project specifics live in each repo's `CLAUDE.md`.
-- **Model policy**: `inherit` everywhere except cheap validators on `haiku`.
+## Layers
+
+| Layer | Modules | What lives there |
+|---|---|---|
+| Guardrails and workflow | zd-core | Node hooks, secrets audit, stack detection, onboarding, hand-over |
+| Data and platform | zd-gis, zd-gee, zd-deploy | Spatial databases and dashboards, Earth Engine, hosting profiles |
+| Domain pipeline | zd-vector, zd-models, zd-ml | Raster → parcels → features → classes; model training |
+| Products | zd-agis, zd-mobile, zd-reports | The web dashboard, the farmer app, client deliverables |
+| Engineering practice | zd-quality, zd-security, zd-ops, zd-usage | Review, commits, ADRs, security baseline, incidents and runbooks |
+
+## Design rules
+
+1. **Capability lives in modules; the bundle is only convenience.** Every module installs on its own and is versioned together with the others.
+2. **Discovery before assumption.** Agents run `stack-detect` and print a stack summary before acting; unknown → ask.
+3. **Read-only analysts are separate agents** (`stack-analyst`, `db-analyst`, `geo-data-qa`) with no Edit/Write tools.
+4. **Guardrails are code, not prompts.** Destructive commands and credential writes are blocked by hook scripts that are unit-tested and dependency-free. Patterns are shared between the write guard and the audit so both agree.
+5. **Commands vs background skills.** `disable-model-invocation: true` marks user-invoked commands; other skills are applied by Claude when relevant. `docs/COMMANDS.md` is generated from frontmatter and checked in CI.
+6. **Nothing internal in this repository.** Conventions, constants and methods are documented; credentials, project ids, hostnames and client data are not. A test enforces this.
+7. **Model policy.** `inherit` everywhere except cheap validators on `haiku`; pin models only in a fork.

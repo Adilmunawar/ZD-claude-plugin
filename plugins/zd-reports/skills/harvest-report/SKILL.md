@@ -1,7 +1,8 @@
 ---
 name: harvest-report
-description: Build a client-facing harvest progress report (docx or pptx) from harvest-detect outputs — totals, weekly progress, maps/tables by district, methodology, caveats.
 disable-model-invocation: true
+argument-hint: "<harvest.gpkg> [docx|pptx]"
+description: Client harvest progress report (docx/pptx) from harvest-detect outputs.
 ---
 
 Input: `harvest_<aoi>_<season>.gpkg` + summary from `/zd-gee:harvest-detect`.

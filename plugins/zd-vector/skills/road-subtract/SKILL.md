@@ -1,6 +1,6 @@
 ---
 name: road-subtract
-description: Remove roads, canals and rail from parcel polygons using OSM/Overture/other road layers, fixing edge bleeding from gap-fill steps. Apply when parcels cross roads or when a Voronoi/buffer gap-fill produced parcels that overrun roads.
+description: Subtract OSM/Overture road, canal and rail buffers from parcels; fix gap-fill edge bleeding.
 ---
 
 # Road / canal subtraction

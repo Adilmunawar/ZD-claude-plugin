@@ -1,7 +1,8 @@
 ---
 name: harvest-detect
-description: Detect harvest events per parcel from NDVI (and optional S1 VH) time series — sudden drops after a mature plateau — and produce a harvest-date layer and summary. Use for sugarcane/wheat/rice harvest reporting.
 disable-model-invocation: true
+argument-hint: "<timeseries.parquet> [crop]"
+description: Detect harvest dates per parcel from NDVI (and S1) drops; produce a harvest layer and summary.
 ---
 
 Input: parcel × date index table from `ndvi-timeseries`.

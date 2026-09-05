@@ -1,6 +1,6 @@
 ---
 name: gee-export
-description: Avoid and fix GEE limits — payload size, user memory, too many elements, computation timeouts — when exporting images and tables. Apply on any Export.*, getInfo on large collections, or "payload too large"/"Too many concurrent aggregations" errors.
+description: Fixes for Earth Engine limits: payload size, user memory, too many elements, timeouts, task queue, Drive quota.
 ---
 
 | Problem | Fix |

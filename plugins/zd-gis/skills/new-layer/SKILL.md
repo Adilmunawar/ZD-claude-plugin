@@ -1,7 +1,8 @@
 ---
 name: new-layer
-description: Add a new map layer to a dashboard end-to-end (table → view → tile/feature service → dashboard config → legend). Use when the user says add layer, publish layer, show X on the dashboard.
 disable-model-invocation: true
+argument-hint: "<layer-name> [source]"
+description: Publish a map layer end to end: table, display view, tile service, dashboard config, legend, smoke test.
 ---
 
 Delegate to `gis-dashboard-manager` with this checklist and require a done/remaining report:

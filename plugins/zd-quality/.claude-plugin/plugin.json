@@ -1,0 +1,17 @@
+{
+  "name": "zd-quality",
+  "displayName": "Zaraat Dost \u00b7 Quality",
+  "description": "Code review standards, conventional commits, PR descriptions, changelog generation, architecture decision records, tech-debt audits",
+  "version": "0.7.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-quality",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "quality"
+  ]
+}

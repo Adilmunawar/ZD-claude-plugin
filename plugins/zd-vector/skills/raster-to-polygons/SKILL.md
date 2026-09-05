@@ -1,6 +1,6 @@
 ---
 name: raster-to-polygons
-description: RAM-safe conversion of large classification or boundary rasters to polygons — tiling with overlap, connected components, merging across tile seams, min-area filtering. Apply for any raster→vector step on rasters larger than a few thousand pixels per side.
+description: RAM-safe raster to polygon conversion for large rasters: tiling with overlap, components, seam merge, min-area filter, resume.
 ---
 
 # Raster → polygons, tile-safe

@@ -18,7 +18,10 @@
       "Read(./.env.*)",
       "Read(./**/gee.json)",
       "Read(./**/*service-account*.json)",
-      "Read(./**/appsettings.Production.json)"
+      "Read(./**/appsettings.Production.json)",
+      "Read(./**/*ee-key*.json)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.pfx)"
     ]
   }
 }

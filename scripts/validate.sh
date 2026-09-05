@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
-# Validate marketplace + plugin manifests and frontmatter. Requires: python3.
+# Local validation: manifests, frontmatter, hook syntax, unit tests, docs drift. Requires node >= 18 and python3.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-echo "== marketplace.json"; python3 -c "import json,sys; d=json.load(open('.claude-plugin/marketplace.json')); assert all(k in d for k in ('name','owner','plugins')), 'missing required key'" && echo ok
-for p in plugins/*/; do
-  echo "== $p"
-  python3 -c "import json; d=json.load(open('$p/.claude-plugin/plugin.json')); assert 'name' in d" && echo "plugin.json ok"
-  [ -f "$p/hooks/hooks.json" ] && python3 -c "import json; json.load(open('$p/hooks/hooks.json'))" && echo "hooks.json ok"
-  for s in "$p"scripts/*.js; do [ -f "$s" ] && node --check "$s" && echo "  $s syntax ok"; done
-  for f in "$p"agents/*.md "$p"skills/*/SKILL.md "$p"output-styles/*.md; do
-    [ -f "$f" ] || continue
-    head -1 "$f" | grep -q '^---$' || { echo "FAIL: $f missing frontmatter"; exit 1; }
-    grep -q '^description:' "$f" || { echo "FAIL: $f missing description"; exit 1; }
-    echo "  $f ok"
-  done
-done
-if command -v claude >/dev/null; then claude plugin validate .; else echo "(claude CLI not found; skipped deep validation)"; fi
+echo "== manifests"
+python3 -c "import json,glob; json.load(open('.claude-plugin/marketplace.json')); [json.load(open(f)) for f in glob.glob('plugins/*/.claude-plugin/plugin.json')]; print('ok')"
+echo "== hook script syntax"
+for s in plugins/*/scripts/*.js; do node --check "$s"; done && echo ok
+echo "== python syntax"
+python3 -m py_compile plugins/zd-vector/scripts/raster_to_polygons.py scripts/gen-docs.py && echo ok
+echo "== node tests"
+node --test "tests/*.test.js"
+echo "== python tests"
+if python3 -c "import pytest" 2>/dev/null; then python3 -m pytest -q tests/; else python3 -c "
+import importlib.util,sys; spec=importlib.util.spec_from_file_location('t','tests/test_repo.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+[getattr(m,n)() for n in dir(m) if n.startswith('test_')]; print('ok (pytest not installed; ran directly)')"; fi
+echo "== upgrade plan (dry run)"
+node plugins/zaraat-dost/scripts/upgrade.js --dry-run >/dev/null && echo ok
+echo "== docs"
+python3 scripts/gen-docs.py --check && echo ok
+if command -v claude >/dev/null 2>&1; then echo "== claude plugin validate"; claude plugin validate .; fi

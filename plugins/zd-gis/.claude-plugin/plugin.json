@@ -1,16 +1,19 @@
 {
   "name": "zd-gis",
-  "description": "Spatial database study/management, dashboard engineering and layer publishing \u2014 Postgres/PostGIS, SQL Server, SQLite/GeoPackage; Python or .NET stacks.",
-  "version": "0.3.0",
-  "author": {
-    "name": "Zaraat Dost ML/GIS team"
-  },
-  "license": "MIT",
-  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
-  "keywords": [
-    "gis",
-    "agriculture"
-  ],
   "displayName": "Zaraat Dost \u00b7 GIS",
-  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-gis"
+  "description": "Spatial database study and management, dashboards, layer publishing \u2014 Python or .NET",
+  "version": "0.7.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-gis",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "gis",
+    "agriculture",
+    "gis"
+  ]
 }

@@ -1,0 +1,23 @@
+{
+  "name": "zd-security",
+  "displayName": "Zaraat Dost \u00b7 Security",
+  "description": "Security review for Next.js/Flask/.NET/Expo, dependency and licence audits, branch protection, repository hardening templates",
+  "version": "0.7.0",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-security",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "security"
+  ],
+  "dependencies": [
+    {
+      "name": "zd-core",
+      "version": "^0.7.0"
+    }
+  ]
+}

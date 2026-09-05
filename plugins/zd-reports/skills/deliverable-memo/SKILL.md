@@ -1,7 +1,8 @@
 ---
 name: deliverable-memo
-description: Write the memo/email that accompanies a geospatial deliverable to a client or operations team — what's included, how it was produced, QA results, how to open it, caveats. Use whenever a layer or report is being handed over.
 disable-model-invocation: true
+argument-hint: "<deliverable-dir>"
+description: One-page hand-over note for a geospatial deliverable: contents, method, QA, how to open, caveats.
 ---
 
 Produce `deliverables/<project>/README_<date>.md` (and offer a .docx via the docx skill if the recipient is non-technical):

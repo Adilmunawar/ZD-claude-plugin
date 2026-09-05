@@ -1,7 +1,8 @@
 ---
 name: layer-metadata
-description: Generate a standard metadata sheet (ISO-lite) for a vector or raster layer — source, lineage, CRS, extent, fields, QA, licence — as JSON + Markdown. Use before publishing or delivering any layer.
 disable-model-invocation: true
+argument-hint: "<layer-file>"
+description: Metadata sheet (JSON + Markdown) for a vector or raster layer before publishing or delivery.
 ---
 
 Inspect the layer (GeoPandas/rasterio/`ogrinfo`/`gdalinfo`) and write `<layer>.metadata.json` and `.md`:
