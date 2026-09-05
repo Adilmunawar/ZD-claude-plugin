@@ -28,13 +28,13 @@ function claude(cmdArgs) {
 }
 function deps(m) { return (m.dependencies || []).map(d => (typeof d === "string" ? d : d.name)); }
 function plan(m) {
-  return [["marketplace", ["plugin", "marketplace", "update", MARKET]], [m.name, ["plugin", "update", `${m.name}@${MARKET}`, "--yes"]],
-          ...deps(m).map(d => [d, ["plugin", "update", `${d}@${MARKET}`, "--yes"]])];
+  return [["marketplace", ["plugin", "marketplace", "update", MARKET]], [m.name, ["plugin", "update", `${m.name}@${MARKET}`]],
+          ...deps(m).map(d => [d, ["plugin", "update", `${d}@${MARKET}`]])];
 }
 function step(label, cmdArgs, results) {
   let r = claude(cmdArgs);
   if (r.status !== 0 && /not installed|not found|No plugin/i.test(r.stdout + r.stderr) && cmdArgs[1] === "update") {
-    r = claude(["plugin", "install", cmdArgs[2], "--yes"]); // a dependency added in the new release
+    r = claude(["plugin", "install", cmdArgs[2]]); // a dependency added in the new release
     if (r.status === 0) r.stdout += " (installed)";
   }
   const line = (r.stdout + " " + r.stderr).replace(/\s+/g, " ").trim();
@@ -47,7 +47,7 @@ function main() {
   const first = plan(m).slice(0, 2);
   for (const [label, cmdArgs] of first) step(label, cmdArgs, results);
   const fresh = dry ? m : newestManifest();
-  for (const d of deps(fresh)) step(d, ["plugin", "update", `${d}@${MARKET}`, "--yes"], results);
+  for (const d of deps(fresh)) step(d, ["plugin", "update", `${d}@${MARKET}`], results);
   if (asJson) console.log(JSON.stringify(results, null, 2));
   const failed = results.filter(r => !r.ok).length;
   if (!asJson) console.log(failed ? `\n${failed} step(s) failed.` : "\nDone. Restart Claude Code or run /reload-plugins, then /zaraat-dost:doctor.");

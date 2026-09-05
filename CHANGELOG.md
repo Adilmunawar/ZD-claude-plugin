@@ -2,6 +2,11 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.2 — 2026-09-06
+
+Fixed
+- Installers and the upgrade script no longer pass `--yes` to `claude plugin`; the flag does not exist in Claude Code 2.1.226 and earlier and is not needed for this marketplace. A test guards it.
+
 ## 7.3.1 — 2026-09-06
 
 Fixed

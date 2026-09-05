@@ -15,6 +15,6 @@ if [ -n "$CVN" ] && [ "$(printf '%s\n2.1.110\n' "$CVN" | sort -V | head -1)" != 
 echo "adding marketplace ${SOURCE}"
 if ! claude plugin marketplace add "${SOURCE}" >/dev/null 2>&1; then claude plugin marketplace update zaraatdost >/dev/null; fi
 echo "installing ${MODULE}@zaraatdost"
-claude plugin install "${MODULE}@zaraatdost" --yes
+claude plugin install "${MODULE}@zaraatdost"
 echo
 echo "${G}${B}Installed.${N} Open Claude Code in a project and run:  /zaraat-dost:doctor   then   /zaraat-dost:help"

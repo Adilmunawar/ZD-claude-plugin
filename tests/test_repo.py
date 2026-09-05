@@ -69,6 +69,8 @@ def test_environment_assumptions():
     for f in ["README.md", "docs/INSTALL.md", "install.sh", "install.ps1", "plugins/zaraat-dost/README.md"]:
         txt = open(f"{ROOT}/{f}", encoding="utf-8").read()
         assert "marketplace add Adilmunawar/ZD-claude-plugin" not in txt, f"{f}: use the HTTPS URL, owner/repo shorthand may resolve to SSH"
+    for f in ["install.sh", "install.ps1", "plugins/zaraat-dost/scripts/upgrade.js"]:
+        assert "--yes" not in open(f"{ROOT}/{f}", encoding="utf-8").read(), f"{f}: --yes is not supported by Claude Code < 2.1.23x and is not needed"
     ps1 = open(f"{ROOT}/install.ps1", encoding="utf-8").read()
     assert not re.search(r"^\s*exit\b", ps1, re.M), "install.ps1 must not call exit (closes the window under iex)"
     for f in glob.glob(f"{ROOT}/plugins/**/*.md", recursive=True) + glob.glob(f"{ROOT}/plugins/*/hooks/hooks.json"):

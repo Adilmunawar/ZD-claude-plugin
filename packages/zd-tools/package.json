@@ -1,6 +1,6 @@
 {
   "name": "@adilmunawar/zd-tools",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "description": "Zaraat Dost engineering tools from the Claude Code toolkit, usable without Claude Code: secrets audit (tree + git history), Claude usage reports and budgets, plugin upgrade. Zero dependencies.",
   "license": "MIT",
   "repository": {

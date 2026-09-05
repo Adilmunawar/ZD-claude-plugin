@@ -52,7 +52,7 @@ function Install-ZDToolkit {
 
   # 4. Plugin
   Write-Host "[..] Installing $Module@zaraatdost"
-  & claude plugin install "$Module@zaraatdost" --yes
+  & claude plugin install "$Module@zaraatdost"
   if ($LASTEXITCODE -ne 0) {
     Write-Host "[x] Install failed (exit $LASTEXITCODE). Useful commands:" -ForegroundColor Red
     Write-Host "    claude plugin marketplace list"

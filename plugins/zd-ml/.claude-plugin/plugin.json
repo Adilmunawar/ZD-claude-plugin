@@ -2,7 +2,7 @@
   "name": "zd-ml",
   "displayName": "Zaraat Dost · ML",
   "description": "Segmentation training conventions, pre-flight bug checks, Colab patterns, model cards",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
