@@ -2,7 +2,7 @@
   "name": "zd-vector",
   "displayName": "Zaraat Dost · Vector",
   "description": "Raster-to-parcel vectorisation, topology repair, junction straightening, road subtraction, gap analysis",
-  "version": "7.3.3",
+  "version": "7.3.4",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

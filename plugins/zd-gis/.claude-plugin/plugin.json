@@ -2,7 +2,7 @@
   "name": "zd-gis",
   "displayName": "Zaraat Dost · GIS",
   "description": "Spatial database study and management, dashboards, layer publishing — Python or .NET",
-  "version": "7.3.3",
+  "version": "7.3.4",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

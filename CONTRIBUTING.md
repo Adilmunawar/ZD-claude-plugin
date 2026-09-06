@@ -10,7 +10,7 @@
 2. Agents in `plugins/<module>/agents/<name>.md`, skills in `plugins/<module>/skills/<name>/SKILL.md` (`name` must equal the folder), commands set `disable-model-invocation: true`.
 3. Declare dependencies on other modules in the module's `plugin.json`.
 4. Bump `version` in **every** `plugin.json` and in `packages/zd-tools/package.json` (all modules share one version; `tests/test_repo.py` checks this).
-5. `python3 scripts/gen-docs.py` and `bash scripts/validate.sh`.
+5. `bash scripts/ci-local.sh` — exactly what CI runs; it must be green before you push (it regenerates nothing, so run `python3 scripts/gen-docs.py` first if you changed a skill or agent).
 6. Add a CHANGELOG entry. Open a PR using the template; CI must pass.
 
 ## Releasing

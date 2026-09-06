@@ -194,7 +194,7 @@ The same scripts the plugins run are published as an npm package for terminals a
 Install once from the release tarball — no registry account, no token:
 
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.3/adilmunawar-zd-tools-7.3.3.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.4/adilmunawar-zd-tools-7.3.4.tgz
 ```
 ```bash
 zd-tools secrets-audit . --history     # CI gate: exit 1 on committed credentials
@@ -237,9 +237,14 @@ Every release is exercised against the real Claude Code CLI before it is tagged 
 ## Development
 
 ```bash
-bash scripts/validate.sh      # manifests, hook syntax, node + python tests, docs drift, official validator
-python3 scripts/gen-docs.py   # regenerate docs/COMMANDS.md
+bash scripts/ci-local.sh            # everything CI runs — run this before pushing
+bash scripts/ci-local.sh --release  # also builds and verifies the release assets
+bash scripts/validate.sh            # manifests, hook syntax, tests, docs drift, official validator
+python3 scripts/gen-docs.py         # regenerate docs/COMMANDS.md
+bash scripts/release.sh X.Y.Z       # prepare a release (bump, changelog check, validate)
 ```
+
+`ci-local.sh` mirrors both workflows step for step, so a green local run means a green CI run. Steps that need a runner (`pwsh`, publishing) are reported as skipped rather than silently passed.
 
 Releases: `bash scripts/release.sh X.Y.Z`, commit, tag, push the tag. The workflow re-checks every manifest and the changelog, validates, builds the archive and package, **verifies both actually install and run**, publishes, and writes the release notes. See [CONTRIBUTING.md](CONTRIBUTING.md#releasing).
 

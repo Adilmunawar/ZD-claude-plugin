@@ -6,12 +6,12 @@ The standalone commands from [Claude Plugins for Zaraat Dost](https://github.com
 
 **Method 1 — release tarball (no account, no token, works everywhere):**
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.3/adilmunawar-zd-tools-7.3.3.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.4/adilmunawar-zd-tools-7.3.4.tgz
 zd-tools --help
 ```
 In CI, one line and no install:
 ```yaml
-- run: npx -y https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.3/adilmunawar-zd-tools-7.3.3.tgz secrets-audit . --history
+- run: npx -y https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.4/adilmunawar-zd-tools-7.3.4.tgz secrets-audit . --history
 ```
 
 **Method 2 — GitHub Packages** (needs a token with `read:packages`, see below):

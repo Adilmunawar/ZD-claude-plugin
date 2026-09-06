@@ -2,6 +2,14 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.4 — 2026-09-06
+
+Added
+- `scripts/ci-local.sh`: runs every CI step locally, including the release-asset build and verification with `--release`. Steps that need a runner are reported as skipped, never silently passed. A green local run means a green CI run.
+
+Changed
+- README and CONTRIBUTING point at `ci-local.sh` as the pre-push check.
+
 ## 7.3.3 — 2026-09-06
 
 Fixed
