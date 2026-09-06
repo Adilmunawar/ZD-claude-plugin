@@ -2,19 +2,25 @@
 
 The standalone commands from [Claude Plugins for Zaraat Dost](https://github.com/Adilmunawar/ZD-claude-plugin), for terminals and CI where Claude Code isn't running. Zero dependencies, Node 18+.
 
-> This package is **not on npmjs.com**. `npm i @adilmunawar/zd-tools` will return 404. Use one of the two methods below.
+> This package is **not on npmjs.com**. `npm i @adilmunawar/zd-tools` returns 404 unless you point npm at GitHub Packages (method 3). Methods 1 and 2 need no configuration at all.
 
-**Method 1 — release tarball (no account, no token, works everywhere):**
+**Method 1 — straight from the repository (recommended: no account, no token, no version string):**
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.5/adilmunawar-zd-tools-7.3.5.tgz
+npm i -g github:Adilmunawar/ZD-claude-plugin      # latest main
+npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.0   # pinned
 zd-tools --help
 ```
 In CI, one line and no install:
 ```yaml
-- run: npx -y https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.5/adilmunawar-zd-tools-7.3.5.tgz secrets-audit . --history
+- run: npx -y github:Adilmunawar/ZD-claude-plugin secrets-audit . --history --ignore=tests
 ```
 
-**Method 2 — GitHub Packages** (needs a token with `read:packages`, see below):
+**Method 2 — release tarball** (exact bytes, checksummed):
+```bash
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.4.0/adilmunawar-zd-tools-7.4.0.tgz
+```
+
+**Method 3 — GitHub Packages** (scoped name; needs a token with `read:packages`, see below):
 ```bash
 npm i -g @adilmunawar/zd-tools
 ```

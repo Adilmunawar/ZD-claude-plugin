@@ -2,6 +2,15 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.4.0 — 2026-09-06
+
+Added
+- The CLI installs straight from the repository: `npm i -g github:Adilmunawar/ZD-claude-plugin` (pin with `#v7.4.0`). No registry account, no token, no version string to copy. A root `package.json` declares the entry point and the exact files an install needs; the entry point resolves its scripts from either the packed tarball layout or the repository layout, so all three install methods run the same code.
+- Tests: the root package must list every directory the CLI needs and the entry point must be executable in git — a `github:` install fails with a permission error otherwise.
+
+Changed
+- README, package README, troubleshooting and the security-scan template lead with the `github:` install; the release tarball and GitHub Packages remain documented as methods 2 and 3.
+
 ## 7.3.5 — 2026-09-06
 
 Added

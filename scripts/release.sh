@@ -14,7 +14,7 @@ for (const d of fs.readdirSync("plugins")) {
   j.version=v; if (j.dependencies) j.dependencies=j.dependencies.map(x=>({name:x.name,version:"^"+v}));
   fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
 }
-for (const p of [".claude-plugin/marketplace.json","packages/zd-tools/package.json"]) {
+for (const p of [".claude-plugin/marketplace.json","packages/zd-tools/package.json","package.json"]) {
   const j=JSON.parse(fs.readFileSync(p)); j.version=v; fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
 }
 console.log("bumped every manifest to", v);
@@ -30,7 +30,8 @@ for (const f of files) {
   const before=fs.readFileSync(f,"utf8");
   const after=before
     .replace(/releases\/download\/v\d+\.\d+\.\d+\/adilmunawar-zd-tools-\d+\.\d+\.\d+\.tgz/g, `releases/download/v${v}/adilmunawar-zd-tools-${v}.tgz`)
-    .replace(/ZD-claude-plugin-\d+\.\d+\.\d+/g, `ZD-claude-plugin-${v}`);
+    .replace(/ZD-claude-plugin-\d+\.\d+\.\d+/g, `ZD-claude-plugin-${v}`)
+    .replace(/#v\d+\.\d+\.\d+/g, `#v${v}`);
   if (after!==before) { fs.writeFileSync(f, after); n++; }
 }
 console.log("rewrote pinned download URLs in", n, "file(s)");

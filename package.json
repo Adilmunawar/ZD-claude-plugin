@@ -1,0 +1,31 @@
+{
+  "name": "zd-tools",
+  "version": "7.4.0",
+  "private": false,
+  "description": "Zaraat Dost engineering tools: secrets audit (tree + git history), Claude Code usage reports and budgets, toolkit upgrade. Installable straight from GitHub.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adilmunawar/ZD-claude-plugin.git"
+  },
+  "homepage": "https://github.com/Adilmunawar/ZD-claude-plugin",
+  "bin": {
+    "zd-tools": "packages/zd-tools/bin/zd-tools.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "files": [
+    "packages/zd-tools/bin/",
+    "packages/zd-tools/README.md",
+    "plugins/zd-core/scripts/",
+    "plugins/zd-usage/scripts/",
+    "plugins/zaraat-dost/scripts/",
+    "plugins/zaraat-dost/.claude-plugin/",
+    "LICENSE",
+    "README.md"
+  ]
+}

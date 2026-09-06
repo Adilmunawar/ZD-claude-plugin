@@ -191,10 +191,10 @@ flowchart LR
 
 The same scripts the plugins run are published as an npm package for terminals and CI:
 
-Install once from the release tarball — no registry account, no token:
+Install straight from the repository — no registry account, no token, no version to remember:
 
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.5/adilmunawar-zd-tools-7.3.5.tgz
+npm i -g github:Adilmunawar/ZD-claude-plugin
 ```
 ```bash
 zd-tools secrets-audit . --history     # CI gate: exit 1 on committed credentials
@@ -202,7 +202,7 @@ zd-tools usage week --by project       # Claude Code usage from local transcript
 zd-tools upgrade                       # update the toolkit
 ```
 
-The package is also published to **GitHub Packages** (`@adilmunawar/zd-tools`), which requires a `~/.npmrc` entry — see [packages/zd-tools](packages/zd-tools/README.md). It is **not** on npmjs.com, so a bare `npm i @adilmunawar/zd-tools` returns 404 by design. Every release also carries the marketplace archive and SHA-256 sums for offline installs.
+Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.0`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
 
 ## Verified
 
