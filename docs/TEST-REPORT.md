@@ -100,7 +100,7 @@ Every one of these was found by running the real paths; each now has a regressio
 | 4 | `install.ps1` called `exit`, closing the PowerShell window under `irm \| iex` and hiding the error | real Windows machine | rewritten without `exit`; step-by-step output | structure test |
 | 5 | `owner/repo` marketplace shorthand resolved to SSH where `gh` had selected SSH; failed without keys | real Windows machine | HTTPS URL in installers, README, templates | structure test |
 | 6 | `claude plugin install --yes` does not exist before Claude Code ~2.1.23x | real Windows machine | flag removed everywhere | structure test |
-| 7 | Documentation implied `npx @adilmunawar/zd-tools` works from npmjs; it is published to GitHub Packages | real Windows machine | release-tarball command shown first; the 404 explained | structure test |
+| 7 | Documentation implied the scoped package could be fetched from npmjs; it is published to GitHub Packages | real Windows machine | release-tarball command shown first; the 404 explained | structure test |
 | 8 | `upgrade.js` read the dependency list before updating the bundle, so a newly added module was skipped | release simulation | re-reads the new manifest and installs missing modules | live upgrade test |
 
 ## 7. Not covered here
