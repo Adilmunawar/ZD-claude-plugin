@@ -26,7 +26,17 @@ jobs:
           (cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt)
       - name: Publish @adilmunawar/zd-tools to GitHub Packages
         working-directory: packages/zd-tools
-        run: npm publish --provenance=false
+        run: |
+          if npm publish --provenance=false; then
+            echo "published $VERSION"
+          else
+            code=$?
+            if npm view "@adilmunawar/zd-tools@$VERSION" version --registry https://npm.pkg.github.com >/dev/null 2>&1; then
+              echo "version $VERSION is already published — nothing to do"
+            else
+              echo "publish failed (exit $code) and $VERSION is not in the registry"; exit $code
+            fi
+          fi
         env: { NODE_AUTH_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
       - name: Publish to npmjs (only if NPM_TOKEN secret is configured)
         if: ${{ env.NPM_TOKEN != '' }}
