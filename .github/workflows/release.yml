@@ -28,15 +28,14 @@ jobs:
           case "$T" in *.*.*) ;; *.*) T="$T.0";; *) T="$T.0.0";; esac
           V=$(python3 -c "import json;print(json.load(open('plugins/zaraat-dost/.claude-plugin/plugin.json'))['version'])")
           [ "$V" = "$T" ] || { echo "::error::tag ${GITHUB_REF_NAME} resolves to $T but the bundle is $V"; exit 1; }
-          python3 - <<'PY'
+          python3 -c "
           import json, glob, sys
-          vs = {f: json.load(open(f))["version"] for f in glob.glob("plugins/*/.claude-plugin/plugin.json")}
-          vs[".claude-plugin/marketplace.json"] = json.load(open(".claude-plugin/marketplace.json"))["version"]
-          vs["packages/zd-tools/package.json"] = json.load(open("packages/zd-tools/package.json"))["version"]
-          if len(set(vs.values())) != 1:
-              print("::error::version mismatch across manifests:", vs); sys.exit(1)
-          print("all manifests at", next(iter(set(vs.values()))))
-          PY
+          vs = {f: json.load(open(f))['version'] for f in glob.glob('plugins/*/.claude-plugin/plugin.json')}
+          vs['.claude-plugin/marketplace.json'] = json.load(open('.claude-plugin/marketplace.json'))['version']
+          vs['packages/zd-tools/package.json'] = json.load(open('packages/zd-tools/package.json'))['version']
+          if len(set(vs.values())) != 1: sys.exit('::error::version mismatch across manifests: %s' % vs)
+          print('all manifests at', vs['packages/zd-tools/package.json'])"
+
           echo "VERSION=$V" >> "$GITHUB_ENV"
           grep -q "^## $V " CHANGELOG.md || { echo "::error::CHANGELOG.md has no '## $V <date>' section"; exit 1; }
 
@@ -87,39 +86,37 @@ jobs:
             echo "::error::publish failed and ${VERSION} is not in the registry"; exit 1
           fi
 
-      - name: Publish to npmjs (only when the NPM_TOKEN secret exists)
-        if: ${{ secrets.NPM_TOKEN != '' }}
+      - name: Publish to npmjs (only when the NPM_TOKEN secret is configured)
         working-directory: packages/zd-tools
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --registry https://registry.npmjs.org --access public || echo "::warning::npmjs publish skipped or already published"
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::notice::NPM_TOKEN is not configured — skipping npmjs"
+          else
+            npm publish --registry https://registry.npmjs.org --access public || echo "::warning::npmjs publish skipped or already published"
+          fi
 
       - name: Compose release notes
         run: |
           set -euo pipefail
           awk -v v="${VERSION}" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
-          cat >> RELEASE_NOTES.md <<'NOTES'
-
-          ---
-
-          ### Install
-
-          Claude Code:
-          ```
-          /plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git
-          /plugin install zaraat-dost@zaraatdost
-          ```
-
-          Standalone CLI (no registry account needed):
-          ```
-          npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/TAG/adilmunawar-zd-tools-VERSION.tgz
-          ```
-
-          Offline: download the archive below, then `claude plugin marketplace add ./ZD-claude-plugin-VERSION`.
-
-          Assets are verified in CI: the archive passes `claude plugin validate` and the tarball is installed and executed before publishing. Checksums in `SHA256SUMS.txt`.
-          NOTES
-          sed -i "s/TAG/${GITHUB_REF_NAME}/g; s/VERSION/${VERSION}/g" RELEASE_NOTES.md
+          node -e '
+            const fs = require("fs");
+            const tag = process.env.GITHUB_REF_NAME, v = process.env.VERSION;
+            fs.appendFileSync("RELEASE_NOTES.md", [
+              "", "---", "", "### Install", "",
+              "Claude Code:", "```",
+              "/plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git",
+              "/plugin install zaraat-dost@zaraatdost", "```", "",
+              "Standalone CLI (no registry account needed):", "```",
+              `npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/${tag}/adilmunawar-zd-tools-${v}.tgz`,
+              "```", "",
+              `Offline: download the archive below, then \`claude plugin marketplace add ./ZD-claude-plugin-${v}\`.`, "",
+              "Assets are verified in CI: the archive passes `claude plugin validate` and the tarball is installed and executed before publishing. Checksums in `SHA256SUMS.txt`.", ""
+            ].join("\n"));
+          '
+          cat RELEASE_NOTES.md
 
       - uses: softprops/action-gh-release@v3
         with:

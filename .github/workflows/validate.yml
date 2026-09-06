@@ -27,7 +27,7 @@ jobs:
         with: { node-version: 22 }
       - uses: actions/setup-python@v7
         with: { python-version: "3.12" }
-      - run: pip install pytest
+      - run: pip install pytest pyyaml
       - run: bash scripts/validate.sh
       - name: Secrets audit (this repository)
         run: node plugins/zd-core/scripts/secrets-audit.js . --history --ignore=tests

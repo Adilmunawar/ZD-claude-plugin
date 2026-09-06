@@ -88,6 +88,25 @@ def test_environment_assumptions():
         for name, m in (d.get("extraKnownMarketplaces") or {}).items():
             s = m["source"]; assert s["source"] in ("git", "url") and s.get("url", "").startswith("https://"), f"{f}: marketplace {name} must use an https git url"
 
+def test_workflows_are_valid():
+    """A workflow that fails to parse shows up as a red run with no jobs; catch it before pushing."""
+    try:
+        import yaml
+    except ImportError:
+        return  # optional locally; CI installs it
+    import subprocess, tempfile
+    for wf in glob.glob(f"{ROOT}/.github/workflows/*.yml"):
+        d = yaml.safe_load(open(wf))
+        assert d and "jobs" in d, f"{wf}: no jobs"
+        for job in d["jobs"].values():
+            for step in job.get("steps", []):
+                assert "secrets." not in str(step.get("if", "")), f"{wf}: the secrets context is not available in `if`"
+                if "run" in step and (step.get("shell") in (None, "bash")):
+                    with tempfile.NamedTemporaryFile("w", suffix=".sh", delete=False) as fh:
+                        fh.write(step["run"]); path = fh.name
+                    r = subprocess.run(["bash", "-n", path], capture_output=True, text=True)
+                    assert r.returncode == 0, f"{wf} step {step.get('name')}: {r.stderr}"
+
 def test_docs_current():
     r = subprocess.run([sys.executable, f"{ROOT}/scripts/gen-docs.py", "--check"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr

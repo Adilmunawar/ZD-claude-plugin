@@ -4,6 +4,9 @@ All notable changes to this repository are documented here. Versions follow sema
 
 ## 7.3.3 — 2026-09-06
 
+Fixed
+- The release workflow failed to parse (the `secrets` context is not usable in a step `if`, and an indented heredoc corrupted the YAML), so a tag produced a red run with no jobs. Both are fixed and a test now parses every workflow, checks each `run` block with `bash -n`, and rejects `secrets.` in `if`.
+
 Changed
 - Release pipeline hardened: the tag is checked against every manifest (not just the bundle), a matching `CHANGELOG.md` section is required, the full validation and a credentials audit run first, and both release assets are **verified before publishing** — the archive must pass `claude plugin validate` and the package tarball must install and execute. Publishing is idempotent, so re-tagging never fails a release.
 - Release notes now include install commands for Claude Code, the standalone CLI and offline use.
