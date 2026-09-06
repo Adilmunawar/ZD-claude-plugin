@@ -20,6 +20,22 @@ for (const p of [".claude-plugin/marketplace.json","packages/zd-tools/package.js
 console.log("bumped every manifest to", v);
 ' "$V"
 
+# pinned download URLs in the docs must point at the version being released
+node -e '
+const fs=require("fs"), v=process.argv[1];
+const files=["README.md","packages/zd-tools/README.md","docs/TROUBLESHOOTING.md","docs/INSTALL.md","docs/TEST-REPORT.md","plugins/zd-security/templates/.github/workflows/secrets-scan.yml"];
+let n=0;
+for (const f of files) {
+  if (!fs.existsSync(f)) continue;
+  const before=fs.readFileSync(f,"utf8");
+  const after=before
+    .replace(/releases\/download\/v\d+\.\d+\.\d+\/adilmunawar-zd-tools-\d+\.\d+\.\d+\.tgz/g, `releases/download/v${v}/adilmunawar-zd-tools-${v}.tgz`)
+    .replace(/ZD-claude-plugin-\d+\.\d+\.\d+/g, `ZD-claude-plugin-${v}`);
+  if (after!==before) { fs.writeFileSync(f, after); n++; }
+}
+console.log("rewrote pinned download URLs in", n, "file(s)");
+' "$V"
+
 grep -q "^## $V " CHANGELOG.md || {
   echo
   echo "CHANGELOG.md needs a section before you tag. Add at the top:"

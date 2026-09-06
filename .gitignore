@@ -10,3 +10,5 @@ gee.json
 *.pfx
 packages/zd-tools/lib/
 packages/zd-tools/*.tgz
+RELEASE_NOTES.md
+dist/

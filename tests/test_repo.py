@@ -88,6 +88,16 @@ def test_environment_assumptions():
         for name, m in (d.get("extraKnownMarketplaces") or {}).items():
             s = m["source"]; assert s["source"] in ("git", "url") and s.get("url", "").startswith("https://"), f"{f}: marketplace {name} must use an https git url"
 
+def test_pinned_download_urls_match_the_version():
+    """A stale download URL in the docs 404s for users; scripts/release.sh rewrites them, this catches a manual edit."""
+    v = json.load(open(f"{ROOT}/packages/zd-tools/package.json"))["version"]
+    pat = re.compile(r"releases/download/v(\d+\.\d+\.\d+)/adilmunawar-zd-tools-(\d+\.\d+\.\d+)\.tgz")
+    for f in glob.glob(f"{ROOT}/**/*.md", recursive=True) + glob.glob(f"{ROOT}/**/*.yml", recursive=True):
+        if "/node_modules/" in f or f.endswith("CHANGELOG.md"):
+            continue
+        for m in pat.finditer(open(f, encoding="utf-8").read()):
+            assert m.group(1) == v == m.group(2), f"{f}: pinned URL is {m.group(1)} but the current version is {v}"
+
 def test_workflows_are_valid():
     """A workflow that fails to parse shows up as a red run with no jobs; catch it before pushing."""
     try:

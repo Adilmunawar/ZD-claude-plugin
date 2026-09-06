@@ -2,7 +2,7 @@
   "name": "zd-agis",
   "displayName": "Zaraat Dost · AGIS Web",
   "description": "Next.js + Firebase + Earth Engine dashboard conventions: cadastral schema, GEE API routes, Pyodide workers, inference backend",
-  "version": "7.3.4",
+  "version": "7.3.5",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -19,7 +19,7 @@
   "dependencies": [
     {
       "name": "zd-gee",
-      "version": "^7.3.4"
+      "version": "^7.3.5"
     }
   ]
 }

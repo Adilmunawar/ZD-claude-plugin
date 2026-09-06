@@ -194,7 +194,7 @@ The same scripts the plugins run are published as an npm package for terminals a
 Install once from the release tarball — no registry account, no token:
 
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.4/adilmunawar-zd-tools-7.3.4.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.5/adilmunawar-zd-tools-7.3.5.tgz
 ```
 ```bash
 zd-tools secrets-audit . --history     # CI gate: exit 1 on committed credentials
@@ -220,6 +220,7 @@ Every release is exercised against the real Claude Code CLI before it is tagged 
 | [Architecture](docs/ARCHITECTURE.md) | module layers and design rules |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | symptoms → causes → fixes |
 | [Test report](docs/TEST-REPORT.md) | every install/upgrade/package path tested, with results |
+| [Known risks](docs/RISKS.md) | what can still go wrong, what guards it, what to do |
 | [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md) · [Changelog](CHANGELOG.md) | |
 
 ## FAQ

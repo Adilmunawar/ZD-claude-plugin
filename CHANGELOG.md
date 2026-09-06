@@ -2,6 +2,15 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.5 — 2026-09-06
+
+Added
+- `docs/RISKS.md`: every remaining failure mode with its guard and its recovery step, split into guarded, accepted and out-of-scope.
+- `scripts/release.sh` rewrites the pinned download URLs in the docs, and a test fails if any pinned URL does not match the current version — a stale URL would 404 for users.
+
+Fixed
+- `RELEASE_NOTES.md` and `dist/` are ignored; a leftover generated file could be committed with a stale version.
+
 ## 7.3.4 — 2026-09-06
 
 Added
