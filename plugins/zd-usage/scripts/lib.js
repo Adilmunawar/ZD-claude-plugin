@@ -27,8 +27,10 @@ function cost(u, model, table) {
   return (u.input * p[0] + u.output * p[1] + u.cache_write * p[2] + u.cache_read * p[3]) / 1e6;
 }
 function zero() { return { input: 0, output: 0, cache_write: 0, cache_read: 0, messages: 0 }; }
-function add(a, b) { a.input += b.input; a.output += b.output; a.cache_write += b.cache_write; a.cache_read += b.cache_read; a.messages += b.messages; return a; }
-function total(u) { return u.input + u.output + u.cache_write + u.cache_read; }
+// Transcripts are written by other software and can contain anything; never let a bad value poison a total.
+function num(v) { const n = Number(v); return Number.isFinite(n) && n >= 0 ? n : 0; }
+function add(a, b) { a.input += num(b.input); a.output += num(b.output); a.cache_write += num(b.cache_write); a.cache_read += num(b.cache_read); a.messages += num(b.messages); return a; }
+function total(u) { return num(u.input) + num(u.output) + num(u.cache_write) + num(u.cache_read); }
 
 /** Parse one transcript file into per-(day, model) usage. Deduplicates streamed duplicates by message id + request id. */
 function parseTranscript(file) {
@@ -41,7 +43,7 @@ function parseTranscript(file) {
     const id = (msg.id || "") + ":" + (e.requestId || e.request_id || ""); if (id !== ":" && seen.has(id)) continue; seen.add(id);
     const day = (e.timestamp || "").slice(0, 10) || "unknown"; const model = msg.model || "unknown";
     const k = day + "\u0000" + model; if (!out.has(k)) out.set(k, { day, model, usage: zero() });
-    add(out.get(k).usage, { input: u.input_tokens || 0, output: u.output_tokens || 0, cache_write: u.cache_creation_input_tokens || 0, cache_read: u.cache_read_input_tokens || 0, messages: 1 });
+    add(out.get(k).usage, { input: num(u.input_tokens), output: num(u.output_tokens), cache_write: num(u.cache_creation_input_tokens), cache_read: num(u.cache_read_input_tokens), messages: 1 });
   }
   return out;
 }
@@ -75,4 +77,4 @@ function isoWeek(day) { // YYYY-Www
   return `${t.getUTCFullYear()}-W${String(wk).padStart(2, "0")}`;
 }
 function fmt(n) { return n >= 1e6 ? (n / 1e6).toFixed(2) + "M" : n >= 1e3 ? (n / 1e3).toFixed(1) + "k" : String(n); }
-module.exports = { HOME, LEDGER, BUDGET, PROJECTS, pricing, priceFor, cost, zero, add, total, parseTranscript, scanTranscripts, readLedger, appendLedger, readBudget, writeBudget, isoWeek, fmt };
+module.exports = { num, HOME, LEDGER, BUDGET, PROJECTS, pricing, priceFor, cost, zero, add, total, parseTranscript, scanTranscripts, readLedger, appendLedger, readBudget, writeBudget, isoWeek, fmt };

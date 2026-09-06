@@ -1,6 +1,6 @@
 {
   "name": "zd-tools",
-  "version": "7.4.0",
+  "version": "7.4.1",
   "private": false,
   "description": "Zaraat Dost engineering tools: secrets audit (tree + git history), Claude Code usage reports and budgets, toolkit upgrade. Installable straight from GitHub.",
   "license": "MIT",

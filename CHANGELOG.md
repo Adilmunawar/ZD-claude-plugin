@@ -2,6 +2,15 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.4.1 — 2026-09-06
+
+Fixed — found by adversarial testing, each with a regression test
+- `secrets-audit` skipped files larger than 2 MB **silently**: a credential in a large log or notebook was missed. The cap is now 20 MB (`ZD_AUDIT_MAX_BYTES`), and every skipped file is listed in the output.
+- `secrets-audit` did not follow symbolic links, so a credential in a linked directory was never seen. Links are now followed, with loop protection.
+- A credential inside a very long single line (a minified bundle) was missed; long lines are scanned in overlapping chunks.
+- A malformed transcript value (a non-numeric token count) turned usage totals into `NaN` and silently disabled the weekly budget warning. All values are coerced to safe numbers.
+- One transcript line without a timestamp made a whole session undateable, hiding it from the budget check. A session now always carries the latest real date in its transcript, or today.
+
 ## 7.4.0 — 2026-09-06
 
 Added

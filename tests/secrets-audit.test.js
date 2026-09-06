@@ -31,6 +31,34 @@ test("--ignore applies to git history as well as the working tree", () => {
   assert.ok(audit(d, { history: true }).length > 0, "fixture is found when nothing is ignored");
   assert.equal(audit(d, { history: true, ignore: ["tests"] }).length, 0, "ignored directory is skipped in history too");
 });
+test("scans large files, follows symlinked directories, survives symlink loops", () => {
+  const big = "a".repeat(3 * 1024 * 1024) + "\nhf_" + "Q".repeat(34) + "\n";
+  const d = tmpRepo({ "big.py": big, "ok.txt": "nothing here" });
+  assert.ok(audit(d).some(f => f.file === "big.py"), "a secret in a 3 MB file must be found");
+
+  const target = tmpRepo({ "t.py": 'k = "hf_' + "Q".repeat(34) + '"' });
+  const host = fs.mkdtempSync(path.join(os.tmpdir(), "zd-sym-"));
+  fs.symlinkSync(target, path.join(host, "linked"), "dir");
+  assert.ok(audit(host).some(f => f.file.startsWith("linked/")), "a symlinked directory must be scanned");
+
+  fs.symlinkSync(host, path.join(host, "loop"), "dir");
+  const t0 = Date.now(); audit(host);
+  assert.ok(Date.now() - t0 < 10000, "a symlink loop must not hang the scan");
+});
+test("files above the size cap are reported, never silently skipped", () => {
+  const d = tmpRepo({ "huge.log": "x".repeat(1024) });
+  const prev = process.env.ZD_AUDIT_MAX_BYTES;
+  const { execFileSync } = require("child_process");
+  const out = execFileSync(process.execPath, [path.join(__dirname, "..", "plugins", "zd-core", "scripts", "secrets-audit.js"), d],
+    { encoding: "utf8", env: { ...process.env, ZD_AUDIT_MAX_BYTES: "100" } });
+  assert.match(out, /were not scanned/);
+  assert.match(out, /huge\.log/);
+  if (prev === undefined) delete process.env.ZD_AUDIT_MAX_BYTES;
+});
+test("a credential inside a very long single line is still found", () => {
+  const d = tmpRepo({ "bundle.min.js": "x".repeat(50000) + 'const t="hf_' + "Z".repeat(34) + '";' + "y".repeat(50000) });
+  assert.ok(audit(d).some(f => f.rule === "huggingface-token"), "long lines are scanned in chunks");
+});
 test("clean repo yields no findings", () => {
   const d = tmpRepo({ "app.py": 'import os\nTOKEN = os.environ["HF_TOKEN"]\n', ".env.example": "HF_TOKEN=\n" });
   assert.equal(audit(d).length, 0);

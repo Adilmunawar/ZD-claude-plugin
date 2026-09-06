@@ -19,7 +19,7 @@ Scope: every way a person can obtain, install, verify, run, upgrade and uninstal
 | 1e | Single module | `claude plugin install zd-vector@zaraatdost` | pass |
 | 1f | Shell installer from raw URL | `bash <(curl -fsSL …/install.sh)` | pass — 15 plugins |
 | 1g | Installer with module argument | `install.sh zd-gis` | pass |
-| 1h | Offline / air-gapped | release zip → `claude plugin marketplace add ./ZD-claude-plugin-7.4.0` → install | pass |
+| 1h | Offline / air-gapped | release zip → `claude plugin marketplace add ./ZD-claude-plugin-7.4.1` → install | pass |
 | 1i | Windows PowerShell one-liner | `irm …/install.ps1 \| iex` on the real machine | pass after two fixes (see §6) |
 
 ## 2. Upgrade
@@ -103,7 +103,23 @@ Every one of these was found by running the real paths; each now has a regressio
 | 7 | Documentation implied the scoped package could be fetched from npmjs; it is published to GitHub Packages | real Windows machine | release-tarball command shown first; the 404 explained | structure test |
 | 8 | `upgrade.js` read the dependency list before updating the bundle, so a newly added module was skipped | release simulation | re-reads the new manifest and installs missing modules | live upgrade test |
 
-## 7. Not covered here
+## 7. Adversarial testing (7.4.1)
+
+Hooks were fed empty stdin, `null` fields, numeric commands, a 10,000-character command, unicode and emoji, multi-line SQL, Windows `rd /s`, and path-traversal file names: no crash, correct block/allow in every case (19 cases). The audit was run against nested directories, `node_modules` and `.venv` (correctly skipped), binary files, 5 MB text, 60-level nesting and a symlink loop.
+
+Five defects were found and fixed this way:
+
+| Defect | Consequence | Fix |
+|---|---|---|
+| Files above 2 MB skipped silently | a credential in a large log or notebook was missed | cap raised to 20 MB (`ZD_AUDIT_MAX_BYTES`) and every skipped file is listed |
+| Symbolic links not followed | a credential in a linked directory was never scanned | links followed, with loop protection |
+| Long single lines only partly scanned | a credential in a minified bundle was missed | overlapping chunked scanning |
+| Non-numeric token value in a transcript | usage totals became `NaN` and the weekly budget warning silently stopped firing | all values coerced to safe numbers |
+| One line without a timestamp | the whole session became undateable and invisible to the budget check | a session takes the latest real date in its transcript, or today |
+
+Each has a regression test in `tests/`.
+
+## 8. Not covered here
 
 - **Skill and agent output quality.** Structure, loading and invocation are verified; what an agent *says* on a real repository is reviewed by hand and is the reason for the pilot rollout.
 - **GitHub Packages install** could not be exercised from the test sandbox (its egress allow-list blocks `npm.pkg.github.com`). The package is published and public; the registry-free tarball path is tested instead and is the documented default.

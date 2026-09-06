@@ -2,7 +2,7 @@
   "name": "zd-core",
   "displayName": "Zaraat Dost · Core",
   "description": "Guardrails (Node hooks), secrets audit, stack detection, onboarding, handoff, output style",
-  "version": "7.4.0",
+  "version": "7.4.1",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

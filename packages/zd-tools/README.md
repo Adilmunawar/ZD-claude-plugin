@@ -7,7 +7,7 @@ The standalone commands from [Claude Plugins for Zaraat Dost](https://github.com
 **Method 1 — straight from the repository (recommended: no account, no token, no version string):**
 ```bash
 npm i -g github:Adilmunawar/ZD-claude-plugin      # latest main
-npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.0   # pinned
+npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.1   # pinned
 zd-tools --help
 ```
 In CI, one line and no install:
@@ -17,7 +17,7 @@ In CI, one line and no install:
 
 **Method 2 — release tarball** (exact bytes, checksummed):
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.4.0/adilmunawar-zd-tools-7.4.0.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.4.1/adilmunawar-zd-tools-7.4.1.tgz
 ```
 
 **Method 3 — GitHub Packages** (scoped name; needs a token with `read:packages`, see below):

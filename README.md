@@ -202,7 +202,7 @@ zd-tools usage week --by project       # Claude Code usage from local transcript
 zd-tools upgrade                       # update the toolkit
 ```
 
-Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.0`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
+Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.1`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
 
 ## Verified
 

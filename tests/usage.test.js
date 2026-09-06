@@ -42,6 +42,18 @@ test("session ledger + budget warning", () => {
   const quiet = spawnSync(process.execPath, [path.join(S, "budget-check.js")], { encoding: "utf8", env: { ...env, ZD_WEEKLY_TOKEN_BUDGET: "60000000" } });
   assert.equal(quiet.stdout, "");
 });
+test("malformed values never corrupt totals or hide a session from the budget", () => {
+  const f = fixture();
+  fs.appendFileSync(f.transcript, JSON.stringify({ type: "assistant", message: { usage: { input_tokens: "x", output_tokens: null } } }) + "\n");
+  const env = { ...process.env, CLAUDE_PROJECTS_DIR: f.projectsRoot, ZD_USAGE_HOME: f.home };
+  const rows = JSON.parse(spawnSync(process.execPath, [path.join(S, "usage-report.js"), "all", "--json"], { encoding: "utf8", env }).stdout);
+  for (const r of rows) for (const v of Object.values(r.usage)) assert.equal(typeof v, "number", "totals stay numeric");
+  spawnSync(process.execPath, [path.join(S, "session-ledger.js")], { encoding: "utf8", env, input: JSON.stringify({ transcript_path: f.transcript, cwd: "/home/adil/AGIS" }) });
+  const entry = JSON.parse(fs.readFileSync(path.join(f.home, "ledger.jsonl"), "utf8").trim().split("\n").pop());
+  assert.match(entry.day, /^\d{4}-\d{2}-\d{2}$/, "a session is always dated, even with malformed lines");
+  const warn = spawnSync(process.execPath, [path.join(S, "budget-check.js")], { encoding: "utf8", env: { ...env, ZD_WEEKLY_TOKEN_BUDGET: "1" } });
+  assert.match(warn.stdout, /Usage budget/, "the budget check sees the session");
+});
 test("hooks never fail without input or transcript", () => {
   for (const s of ["session-ledger.js", "budget-check.js"]) {
     const r = spawnSync(process.execPath, [path.join(S, s)], { encoding: "utf8", input: "not json", env: { ...process.env, ZD_USAGE_HOME: fs.mkdtempSync(path.join(os.tmpdir(), "zd-h-")) } });

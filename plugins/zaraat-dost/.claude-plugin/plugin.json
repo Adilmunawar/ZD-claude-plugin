@@ -2,7 +2,7 @@
   "name": "zaraat-dost",
   "displayName": "Claude Plugins for Zaraat Dost",
   "description": "Complete toolkit in one install: guardrails, GIS databases and dashboards, the cadastral/land-use pipeline, satellite ML, Earth Engine, the AGIS web app, the farmer mobile app, deployment, quality, security, operations, usage monitoring and client reports.",
-  "version": "7.4.0",
+  "version": "7.4.1",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -24,59 +24,59 @@
   "dependencies": [
     {
       "name": "zd-core",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-gis",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-vector",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-models",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-ml",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-gee",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-agis",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-mobile",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-deploy",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-reports",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-quality",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-security",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-ops",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     },
     {
       "name": "zd-usage",
-      "version": "^7.4.0"
+      "version": "^7.4.1"
     }
   ]
 }

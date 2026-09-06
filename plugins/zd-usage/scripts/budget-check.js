@@ -4,7 +4,7 @@
 const path = require("path");
 const L = require(path.join(__dirname, "lib.js"));
 try {
-  const b = L.readBudget(); const weekly = Number(process.env.ZD_WEEKLY_TOKEN_BUDGET || b.weekly_tokens || 0); if (!weekly) process.exit(0);
+  const b = L.readBudget(); const weekly = L.num(process.env.ZD_WEEKLY_TOKEN_BUDGET || b.weekly_tokens || 0); if (!weekly) process.exit(0);
   const wk = L.isoWeek(new Date().toISOString().slice(0, 10));
   let used = 0; for (const e of L.readLedger()) if (L.isoWeek(e.day) === wk) used += L.total(e.usage);
   const pct = used / weekly * 100;
