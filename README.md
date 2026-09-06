@@ -194,7 +194,7 @@ The same scripts the plugins run are published as an npm package for terminals a
 Install once from the release tarball — no registry account, no token:
 
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.2/adilmunawar-zd-tools-7.3.2.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.3/adilmunawar-zd-tools-7.3.3.tgz
 ```
 ```bash
 zd-tools secrets-audit . --history     # CI gate: exit 1 on committed credentials
@@ -241,7 +241,7 @@ bash scripts/validate.sh      # manifests, hook syntax, node + python tests, doc
 python3 scripts/gen-docs.py   # regenerate docs/COMMANDS.md
 ```
 
-Releases: bump every `plugin.json` and `packages/zd-tools/package.json` to the same version (a test enforces it), add a CHANGELOG section, tag `vX.Y.Z` (or `vX.Y`), push the tag — the workflow validates, publishes the npm package, and attaches the archive and checksums to the GitHub Release.
+Releases: `bash scripts/release.sh X.Y.Z`, commit, tag, push the tag. The workflow re-checks every manifest and the changelog, validates, builds the archive and package, **verifies both actually install and run**, publishes, and writes the release notes. See [CONTRIBUTING.md](CONTRIBUTING.md#releasing).
 
 ---
 

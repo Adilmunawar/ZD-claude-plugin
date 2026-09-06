@@ -2,7 +2,7 @@
   "name": "zd-gee",
   "displayName": "Zaraat Dost · Earth Engine",
   "description": "Authentication, export limits, Sentinel-1/2 composites, index time series, harvest detection",
-  "version": "7.3.2",
+  "version": "7.3.3",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

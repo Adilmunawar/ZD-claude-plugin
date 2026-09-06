@@ -5,7 +5,7 @@
 | `SSH authentication failed` / `Permission denied (publickey)` when adding the marketplace | Claude Code cloned `owner/repo` over SSH and no key is registered | Use the HTTPS URL: `claude plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git` (the installers do this by default) |
 | `plugin-not-found` after install | Marketplace not refreshed | `/plugin marketplace update zaraatdost` then reinstall |
 | Bundle installed but a module missing | Dependency resolution needs Claude Code ≥ 2.1.110 | Update Claude Code, or install the module directly: `/plugin install zd-gis@zaraatdost` |
-| `npm error 404 @adilmunawar/zd-tools is not in this registry` | The package is on GitHub Packages, not npmjs | Install from the release tarball: `npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.2/adilmunawar-zd-tools-7.3.2.tgz` |
+| `npm error 404 @adilmunawar/zd-tools is not in this registry` | The package is on GitHub Packages, not npmjs | Install from the release tarball: `npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.3/adilmunawar-zd-tools-7.3.3.tgz` |
 | PowerShell window closes while installing | An old installer called `exit` under `iex` | Fixed in 7.3.1; run `irm … | iex` again, or the three manual commands in INSTALL.md |
 | `claude plugin list` says no plugins after an install attempt | The earlier attempt failed before installing | Run the installer again; it now reports each step |
 | Hooks don't run on Windows | `node` not on PATH for the shell Claude Code uses | Install Node 18+ system-wide; restart terminal; `/hooks` to confirm |

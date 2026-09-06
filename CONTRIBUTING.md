@@ -14,7 +14,16 @@
 6. Add a CHANGELOG entry. Open a PR using the template; CI must pass.
 
 ## Releasing
-Tag `vX.Y.Z` matching the bundle version and push the tag; the release workflow publishes a GitHub Release with the changelog section.
+
+```bash
+bash scripts/release.sh 7.4.0     # bumps every manifest, checks the changelog, regenerates docs, validates
+git add -A && git commit -m "chore(release): v7.4.0" && git push
+git tag v7.4.0 && git push origin v7.4.0
+```
+
+The release workflow then: checks the tag against **every** manifest, requires a matching `CHANGELOG.md` section, runs the full validation and a credentials audit, builds the archive and package tarball, **verifies the archive passes `claude plugin validate` and the tarball installs and executes**, publishes to GitHub Packages (idempotent), and creates the release with install instructions and checksums. Any failure stops the release before anything is published.
+
+Tag the release commit itself — if you push a fix afterwards, cut the next patch version rather than moving the tag.
 
 ## Renaming or removing
 Add the old name to `renames` in `marketplace.json` so existing installs migrate.

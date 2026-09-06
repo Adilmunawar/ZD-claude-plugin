@@ -2,7 +2,7 @@
   "name": "zd-ops",
   "displayName": "Zaraat Dost · Ops",
   "description": "Incident response, runbooks, postmortems, observability conventions, on-call hand-over",
-  "version": "7.3.2",
+  "version": "7.3.3",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -17,7 +17,7 @@
   "dependencies": [
     {
       "name": "zd-deploy",
-      "version": "^7.3.2"
+      "version": "^7.3.3"
     }
   ]
 }

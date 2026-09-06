@@ -2,7 +2,7 @@
   "name": "zd-models",
   "displayName": "Zaraat Dost · Models",
   "description": "End-to-end cadastral and land-use pipeline: boundary inference, spectral features, classification, sub-parcelling, SAM2",
-  "version": "7.3.2",
+  "version": "7.3.3",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"
@@ -19,15 +19,15 @@
   "dependencies": [
     {
       "name": "zd-vector",
-      "version": "^7.3.2"
+      "version": "^7.3.3"
     },
     {
       "name": "zd-gee",
-      "version": "^7.3.2"
+      "version": "^7.3.3"
     },
     {
       "name": "zd-ml",
-      "version": "^7.3.2"
+      "version": "^7.3.3"
     }
   ]
 }

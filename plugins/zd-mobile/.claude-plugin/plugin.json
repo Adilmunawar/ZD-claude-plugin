@@ -2,7 +2,7 @@
   "name": "zd-mobile",
   "displayName": "Zaraat Dost · Mobile",
   "description": "Expo / React Native farmer-app rules: RTL i18n, API envelope contract, secure storage, release checks",
-  "version": "7.3.2",
+  "version": "7.3.3",
   "author": {
     "name": "Zaraat Dost ML/GIS team",
     "url": "https://github.com/adilmunawar"

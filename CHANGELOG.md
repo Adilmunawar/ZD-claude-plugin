@@ -2,6 +2,13 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.3.3 — 2026-09-06
+
+Changed
+- Release pipeline hardened: the tag is checked against every manifest (not just the bundle), a matching `CHANGELOG.md` section is required, the full validation and a credentials audit run first, and both release assets are **verified before publishing** — the archive must pass `claude plugin validate` and the package tarball must install and execute. Publishing is idempotent, so re-tagging never fails a release.
+- Release notes now include install commands for Claude Code, the standalone CLI and offline use.
+- `scripts/release.sh` prepares a release in one command: bumps every manifest, checks the changelog, regenerates the command reference and runs the full validation.
+
 ## 7.3.2 — 2026-09-06
 
 Fixed

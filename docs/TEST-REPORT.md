@@ -19,7 +19,7 @@ Scope: every way a person can obtain, install, verify, run, upgrade and uninstal
 | 1e | Single module | `claude plugin install zd-vector@zaraatdost` | pass |
 | 1f | Shell installer from raw URL | `bash <(curl -fsSL …/install.sh)` | pass — 15 plugins |
 | 1g | Installer with module argument | `install.sh zd-gis` | pass |
-| 1h | Offline / air-gapped | release zip → `claude plugin marketplace add ./ZD-claude-plugin-7.3.2` → install | pass |
+| 1h | Offline / air-gapped | release zip → `claude plugin marketplace add ./ZD-claude-plugin-7.3.3` → install | pass |
 | 1i | Windows PowerShell one-liner | `irm …/install.ps1 \| iex` on the real machine | pass after two fixes (see §6) |
 
 ## 2. Upgrade

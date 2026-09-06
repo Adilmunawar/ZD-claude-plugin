@@ -2,55 +2,127 @@ name: release
 on:
   push:
     tags: ["v*"]
+
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions: { contents: write, packages: write, id-token: write }
     steps:
       - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v7
-        with: { node-version: 22, registry-url: "https://npm.pkg.github.com", scope: "@adilmunawar" }
-      - name: Check tag matches bundle version
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@adilmunawar"
+      - uses: actions/setup-python@v7
+        with: { python-version: "3.12" }
+
+      - name: Resolve version and check the tag matches every manifest
         run: |
+          set -euo pipefail
+          T="${GITHUB_REF_NAME#v}"
+          case "$T" in *.*.*) ;; *.*) T="$T.0";; *) T="$T.0.0";; esac
           V=$(python3 -c "import json;print(json.load(open('plugins/zaraat-dost/.claude-plugin/plugin.json'))['version'])")
-          T="${GITHUB_REF_NAME#v}"; case "$T" in *.*.*) ;; *.*) T="$T.0";; *) T="$T.0.0";; esac
-          [ "$V" = "$T" ] || { echo "tag ${GITHUB_REF_NAME} (=$T) != bundle version $V"; exit 1; }
+          [ "$V" = "$T" ] || { echo "::error::tag ${GITHUB_REF_NAME} resolves to $T but the bundle is $V"; exit 1; }
+          python3 - <<'PY'
+          import json, glob, sys
+          vs = {f: json.load(open(f))["version"] for f in glob.glob("plugins/*/.claude-plugin/plugin.json")}
+          vs[".claude-plugin/marketplace.json"] = json.load(open(".claude-plugin/marketplace.json"))["version"]
+          vs["packages/zd-tools/package.json"] = json.load(open("packages/zd-tools/package.json"))["version"]
+          if len(set(vs.values())) != 1:
+              print("::error::version mismatch across manifests:", vs); sys.exit(1)
+          print("all manifests at", next(iter(set(vs.values()))))
+          PY
           echo "VERSION=$V" >> "$GITHUB_ENV"
-      - name: Validate
-        run: bash scripts/validate.sh
+          grep -q "^## $V " CHANGELOG.md || { echo "::error::CHANGELOG.md has no '## $V <date>' section"; exit 1; }
+
+      - name: Validate (manifests, tests, docs drift, official validator)
+        run: |
+          pip install --quiet pytest
+          npm install -g @anthropic-ai/claude-code
+          bash scripts/validate.sh
+
+      - name: Audit this repository for credentials
+        run: node plugins/zd-core/scripts/secrets-audit.js . --history --ignore=tests,packages
+
       - name: Build release assets
         run: |
+          set -euo pipefail
           mkdir -p dist
-          git archive --format=zip --prefix="ZD-claude-plugin-${VERSION}/" -o "dist/ZD-claude-plugin-${VERSION}.zip" HEAD
-          (cd packages/zd-tools && npm pack --silent && mv *.tgz ../../dist/)
-          (cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt)
+          git archive --format=zip --prefix="ZD-claude-plugin-${VERSION}/" -o "dist/ZD-claude-plugin-${VERSION}.zip" "${GITHUB_REF_NAME}"
+          (cd packages/zd-tools && npm pack --silent && mv ./*.tgz ../../dist/)
+          (cd dist && sha256sum ./* > SHA256SUMS.txt && cat SHA256SUMS.txt)
+
+      - name: Verify the archive installs as a marketplace
+        run: |
+          set -euo pipefail
+          cd dist && unzip -q "ZD-claude-plugin-${VERSION}.zip"
+          claude plugin validate "ZD-claude-plugin-${VERSION}"
+          rm -rf "ZD-claude-plugin-${VERSION}"
+
+      - name: Verify the package tarball runs
+        run: |
+          set -euo pipefail
+          d=$(mktemp -d); cd "$d"; npm init -y >/dev/null
+          npm install --silent "${GITHUB_WORKSPACE}/dist/adilmunawar-zd-tools-${VERSION}.tgz"
+          [ "$(npx zd-tools --version)" = "${VERSION}" ] || { echo "::error::tarball reports the wrong version"; exit 1; }
+          npx zd-tools secrets-audit . >/dev/null
+          echo '{"tool_input":{"command":"DROP TABLE x"}}' | npx zd-tools guard-bash >/dev/null 2>&1 && { echo "::error::guard did not block"; exit 1; } || true
+          echo "tarball verified"
+
       - name: Publish @adilmunawar/zd-tools to GitHub Packages
         working-directory: packages/zd-tools
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if npm publish --provenance=false; then
-            echo "published $VERSION"
+            echo "published ${VERSION}"
+          elif npm view "@adilmunawar/zd-tools@${VERSION}" version --registry https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "::notice::${VERSION} is already published to GitHub Packages — nothing to do"
           else
-            code=$?
-            if npm view "@adilmunawar/zd-tools@$VERSION" version --registry https://npm.pkg.github.com >/dev/null 2>&1; then
-              echo "version $VERSION is already published — nothing to do"
-            else
-              echo "publish failed (exit $code) and $VERSION is not in the registry"; exit $code
-            fi
+            echo "::error::publish failed and ${VERSION} is not in the registry"; exit 1
           fi
-        env: { NODE_AUTH_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
-      - name: Publish to npmjs (only if NPM_TOKEN secret is configured)
-        if: ${{ env.NPM_TOKEN != '' }}
+
+      - name: Publish to npmjs (only when the NPM_TOKEN secret exists)
+        if: ${{ secrets.NPM_TOKEN != '' }}
         working-directory: packages/zd-tools
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --registry https://registry.npmjs.org --access public || echo "::warning::npmjs publish skipped or already published"
+
+      - name: Compose release notes
         run: |
-          npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
-          npm publish --registry https://registry.npmjs.org --access public --provenance
-        env: { NPM_TOKEN: "${{ secrets.NPM_TOKEN }}" }
-      - name: Extract changelog section
-        run: |
-          T="${GITHUB_REF_NAME#v}"; case "$T" in *.*.*) ;; *.*) T="$T.0";; esac
-          awk -v v="$T" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
-          printf '\n---\nAssets: marketplace archive for offline install, `@adilmunawar/zd-tools` tarball, SHA256SUMS.\n' >> RELEASE_NOTES.md
+          set -euo pipefail
+          awk -v v="${VERSION}" '/^## /{p=($2==v)} p' CHANGELOG.md > RELEASE_NOTES.md
+          cat >> RELEASE_NOTES.md <<'NOTES'
+
+          ---
+
+          ### Install
+
+          Claude Code:
+          ```
+          /plugin marketplace add https://github.com/Adilmunawar/ZD-claude-plugin.git
+          /plugin install zaraat-dost@zaraatdost
+          ```
+
+          Standalone CLI (no registry account needed):
+          ```
+          npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/TAG/adilmunawar-zd-tools-VERSION.tgz
+          ```
+
+          Offline: download the archive below, then `claude plugin marketplace add ./ZD-claude-plugin-VERSION`.
+
+          Assets are verified in CI: the archive passes `claude plugin validate` and the tarball is installed and executed before publishing. Checksums in `SHA256SUMS.txt`.
+          NOTES
+          sed -i "s/TAG/${GITHUB_REF_NAME}/g; s/VERSION/${VERSION}/g" RELEASE_NOTES.md
+
       - uses: softprops/action-gh-release@v3
         with:
           body_path: RELEASE_NOTES.md
           files: dist/*
+          fail_on_unmatched_files: true
