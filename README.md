@@ -191,17 +191,22 @@ flowchart LR
 
 The same scripts the plugins run are published as an npm package for terminals and CI:
 
+Install once from the release tarball — no registry account, no token:
+
 ```bash
-npx @adilmunawar/zd-tools secrets-audit . --history    # CI gate: exit 1 on committed credentials
-npx @adilmunawar/zd-tools usage week --by project      # Claude Code usage from local transcripts
-npx @adilmunawar/zd-tools upgrade                      # update the toolkit
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.3.2/adilmunawar-zd-tools-7.3.2.tgz
+```
+```bash
+zd-tools secrets-audit . --history     # CI gate: exit 1 on committed credentials
+zd-tools usage week --by project       # Claude Code usage from local transcripts
+zd-tools upgrade                       # update the toolkit
 ```
 
-Published to GitHub Packages on every release, with the marketplace archive and SHA-256 sums attached to the [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases) for offline or air-gapped installs. Package details: [packages/zd-tools](packages/zd-tools/README.md).
+The package is also published to **GitHub Packages** (`@adilmunawar/zd-tools`), which requires a `~/.npmrc` entry — see [packages/zd-tools](packages/zd-tools/README.md). It is **not** on npmjs.com, so a bare `npm i @adilmunawar/zd-tools` returns 404 by design. Every release also carries the marketplace archive and SHA-256 sums for offline installs.
 
 ## Verified
 
-Every release is exercised against the real Claude Code CLI before it is tagged — official validator on all 15 plugins, marketplace add, bundle install with dependency resolution, component inventory, hooks executed exactly as Claude Code invokes them, a simulated upgrade, 18 node tests, structure tests and a secrets audit of this repository. The log of the last run is in [docs/VERIFICATION.md](docs/VERIFICATION.md).
+Every release is exercised against the real Claude Code CLI before it is tagged — the full matrix (install paths, upgrade, package, module inventory, hook execution, defects found and fixed) is in [docs/TEST-REPORT.md](docs/TEST-REPORT.md) — official validator on all 15 plugins, marketplace add, bundle install with dependency resolution, component inventory, hooks executed exactly as Claude Code invokes them, a simulated upgrade, 18 node tests, structure tests and a secrets audit of this repository. The log of the last run is in [docs/VERIFICATION.md](docs/VERIFICATION.md).
 
 ## Documentation
 
@@ -214,6 +219,7 @@ Every release is exercised against the real Claude Code CLI before it is tagged 
 | [Upgrading](docs/UPGRADING.md) | migration notes per version |
 | [Architecture](docs/ARCHITECTURE.md) | module layers and design rules |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | symptoms → causes → fixes |
+| [Test report](docs/TEST-REPORT.md) | every install/upgrade/package path tested, with results |
 | [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md) · [Changelog](CHANGELOG.md) | |
 
 ## FAQ

@@ -69,6 +69,13 @@ def test_environment_assumptions():
     for f in ["README.md", "docs/INSTALL.md", "install.sh", "install.ps1", "plugins/zaraat-dost/README.md"]:
         txt = open(f"{ROOT}/{f}", encoding="utf-8").read()
         assert "marketplace add Adilmunawar/ZD-claude-plugin" not in txt, f"{f}: use the HTTPS URL, owner/repo shorthand may resolve to SSH"
+    for f in glob.glob(f"{ROOT}/**/*.md", recursive=True):
+        if "/node_modules/" in f: continue
+        txt = open(f, encoding="utf-8").read()
+        for m in re.finditer(r"(?:npx|npm i(?:nstall)?(?: -g)?) @adilmunawar/zd-tools(?!.*not on npmjs)", txt):
+            line = txt[:m.start()].count("\n") + 1
+            ctx = txt[max(0, m.start()-600):m.start()]
+            assert "GitHub Packages" in ctx or "Method 2" in ctx or "not on npmjs" in ctx, f"{f}:{line}: bare npmjs-style install implies the package is on npmjs; show the release-tarball command or label it GitHub Packages"
     for f in ["install.sh", "install.ps1", "plugins/zaraat-dost/scripts/upgrade.js"]:
         assert "--yes" not in open(f"{ROOT}/{f}", encoding="utf-8").read(), f"{f}: --yes is not supported by Claude Code < 2.1.23x and is not needed"
     ps1 = open(f"{ROOT}/install.ps1", encoding="utf-8").read()
