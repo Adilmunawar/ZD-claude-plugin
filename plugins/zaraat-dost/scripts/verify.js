@@ -34,7 +34,10 @@ async function loadManifest(version) {
   // scripts present in the cache that the manifest does not know about
   for (const plugin of fs.readdirSync(cache)) {
     const sd = path.join(cache, plugin, version, "scripts"); if (!fs.existsSync(sd)) continue;
-    for (const s of fs.readdirSync(sd)) { const rel = `plugins/${plugin}/scripts/${s}`; if (!(rel in manifest.files)) results.unexpected.push(rel); }
+    for (const s of fs.readdirSync(sd, { withFileTypes: true })) {
+      if (!s.isFile() || /\.(pyc|pyo)$/.test(s.name)) continue;   // build caches are not shipped files
+      const rel = `plugins/${plugin}/scripts/${s.name}`; if (!(rel in manifest.files)) results.unexpected.push(rel);
+    }
   }
   const bad = results.modified.length + results.missing.length + results.unexpected.length;
   if (args.includes("--json")) console.log(JSON.stringify(results, null, 2));
