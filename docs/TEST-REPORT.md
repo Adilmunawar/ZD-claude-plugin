@@ -119,7 +119,25 @@ Five defects were found and fixed this way:
 
 Each has a regression test in `tests/`.
 
-## 8. Not covered here
+## 8. Full install on a build system (2026-09-07, v7.4.1)
+
+Clean install on a machine's real profile via the published `install.sh`, then every layer beneath the model:
+
+| Check | Result |
+|---|---|
+| 15 plugins installed and enabled at 7.4.1 | pass |
+| Every `${CLAUDE_PLUGIN_ROOT}/…` path referenced by a skill, agent or hook exists in the installed cache (13 references) | pass — now a permanent test |
+| All 12 agents use only valid tool names and model values | pass — now a permanent test |
+| All 73 skills have complete frontmatter and names matching their directories | pass |
+| Every hook in every `hooks.json` runs from the cache with benign input; guards still block from the cache copy | pass (9 hooks) |
+| Global CLI from `github:` install; audit of the installed cache finds no shipped secrets | pass |
+| Marketplace update from GitHub and the upgrade script on an already-current install | pass |
+| `claude plugin details` for all 15: no load errors; 3,138 tokens always-on | pass |
+| SessionStart chain (banner, update check, budget) produces the expected output | pass |
+
+Optional tools (`ogr2ogr`, `dotnet`, `psql`, `gh`, `conda`, `pwsh`, GeoPandas) were absent on the build box; `/zaraat-dost:doctor` reports these as warnings by design.
+
+## 9. Not covered here
 
 - **Skill and agent output quality.** Structure, loading and invocation are verified; what an agent *says* on a real repository is reviewed by hand and is the reason for the pilot rollout.
 - **GitHub Packages install** could not be exercised from the test sandbox (its egress allow-list blocks `npm.pkg.github.com`). The package is published and public; the registry-free tarball path is tested instead and is the documented default.

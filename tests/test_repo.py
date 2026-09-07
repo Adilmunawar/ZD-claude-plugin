@@ -109,6 +109,25 @@ def test_root_package_ships_what_the_cli_needs():
     mode = subprocess.run(["git", "ls-files", "-s", "packages/zd-tools/bin/zd-tools.js"], cwd=ROOT, capture_output=True, text=True).stdout
     assert mode.startswith("100755"), "the CLI entry point must be executable in git, or a github: install fails with EACCES"
 
+VALID_TOOLS = {"Read", "Grep", "Glob", "Edit", "Write", "Bash", "WebFetch", "WebSearch", "Task", "MultiEdit", "NotebookEdit", "TodoWrite"}
+
+def test_agent_tools_and_models_are_valid():
+    """An unknown tool name silently gives the agent nothing; an unknown model fails at launch."""
+    for f in glob.glob(f"{ROOT}/plugins/*/agents/*.md"):
+        fm = frontmatter(f)
+        for tool in [x.strip() for x in fm["tools"].split(",")]:
+            assert tool in VALID_TOOLS, f"{f}: unknown tool {tool!r}"
+        model = fm.get("model", "inherit").strip()
+        assert model in ("inherit", "haiku", "sonnet", "opus") or model.startswith("claude-"), f"{f}: unknown model {model!r}"
+
+def test_plugin_root_references_resolve():
+    """Every ${CLAUDE_PLUGIN_ROOT}/... path a skill, agent or hook mentions must exist in that plugin, or Claude runs a missing file."""
+    for plugin_dir in glob.glob(f"{ROOT}/plugins/*/"):
+        files = glob.glob(f"{plugin_dir}/**/*.md", recursive=True) + glob.glob(f"{plugin_dir}/hooks/hooks.json")
+        for f in files:
+            for ref in set(re.findall(r"\$\{CLAUDE_PLUGIN_ROOT\}/([A-Za-z0-9_./-]+)", open(f, encoding="utf-8").read())):
+                assert os.path.exists(os.path.join(plugin_dir, ref)), f"{f}: ${{CLAUDE_PLUGIN_ROOT}}/{ref} does not exist in the plugin"
+
 def test_workflows_are_valid():
     """A workflow that fails to parse shows up as a red run with no jobs; catch it before pushing."""
     try:
