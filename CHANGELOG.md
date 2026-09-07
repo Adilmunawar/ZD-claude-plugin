@@ -2,6 +2,12 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.6.1 — 2026-09-07
+
+Fixed
+- The integrity manifest now covers every file under `plugins/*/scripts/` (PowerShell, shell and Python included), so `verify` no longer reports the workstation and vectorisation scripts as unexpected. Found by running `verify` against the live 7.6.0 install.
+- Manifest is reproducible byte-for-byte (no timestamp), so the release staleness check is deterministic.
+
 ## 7.6.0 — 2026-09-07
 
 Security
