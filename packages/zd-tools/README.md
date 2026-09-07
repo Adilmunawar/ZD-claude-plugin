@@ -7,7 +7,7 @@ The standalone commands from [Claude Plugins for Zaraat Dost](https://github.com
 **Method 1 — straight from the repository (recommended: no account, no token, no version string):**
 ```bash
 npm i -g github:Adilmunawar/ZD-claude-plugin      # latest main
-npm i -g github:Adilmunawar/ZD-claude-plugin#v7.5.0   # pinned
+npm i -g github:Adilmunawar/ZD-claude-plugin#v7.6.0   # pinned
 zd-tools --help
 ```
 In CI, one line and no install:
@@ -17,7 +17,7 @@ In CI, one line and no install:
 
 **Method 2 — release tarball** (exact bytes, checksummed):
 ```bash
-npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.5.0/adilmunawar-zd-tools-7.5.0.tgz
+npm i -g https://github.com/Adilmunawar/ZD-claude-plugin/releases/download/v7.6.0/adilmunawar-zd-tools-7.6.0.tgz
 ```
 
 **Method 3 — GitHub Packages** (scoped name; needs a token with `read:packages`, see below):
@@ -38,6 +38,7 @@ zd-tools upgrade                       # update the Claude Code toolkit (needs t
 | `usage [today\|week\|month\|all] [--by project\|model\|day\|week] [--json\|--csv\|--export dir\|--merge dir]` | Token usage and estimated cost; team export/merge |
 | `budget-check` | Warning line when `ZD_WEEKLY_TOKEN_BUDGET` is 80 % / 100 % used |
 | `upgrade [--dry-run]` | Update marketplace, bundle and every module |
+| `verify` | Compare the installed toolkit with the release `INTEGRITY.json`; exit 1 if any hook, agent or skill was modified |
 | `guard-bash`, `guard-write` | The hook guards, for custom hook setups (JSON on stdin, exit 2 = block) |
 
 The code is copied verbatim from the plugin modules at publish time, so the package and the plugins never drift. Published to GitHub Packages and attached to every GitHub Release (and to npmjs if an `NPM_TOKEN` secret is ever configured).

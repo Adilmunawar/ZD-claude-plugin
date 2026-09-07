@@ -1,5 +1,7 @@
 name: validate
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   cross-platform:
     strategy:
@@ -7,11 +9,11 @@ jobs:
       matrix: { os: [windows-latest, macos-latest] }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with: { node-version: 22 }
       - name: Node tests (hooks, audit, usage, upgrade)
-        run: node --test tests/hooks.test.js tests/secrets-audit.test.js tests/usage.test.js tests/upgrade.test.js tests/check-update.test.js
+        run: node --test tests/hooks.test.js tests/secrets-audit.test.js tests/usage.test.js tests/upgrade.test.js tests/check-update.test.js tests/verify.test.js
       - name: Package builds and runs
         run: node scripts/build-package.js && node packages/zd-tools/bin/zd-tools.js --version && node packages/zd-tools/bin/zd-tools.js secrets-audit . --ignore=tests,packages
       - name: PowerShell installer parses
@@ -21,11 +23,11 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with: { node-version: 22 }
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with: { python-version: "3.12" }
       - run: pip install pytest pyyaml
       - run: bash scripts/validate.sh

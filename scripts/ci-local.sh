@@ -14,7 +14,8 @@ step "secrets audit (tree + history)" node plugins/zd-core/scripts/secrets-audit
 
 echo
 echo "== validate workflow: cross-platform job"
-step "node tests" node --test tests/hooks.test.js tests/secrets-audit.test.js tests/usage.test.js tests/upgrade.test.js tests/check-update.test.js
+step "node tests" node --test tests/hooks.test.js tests/secrets-audit.test.js tests/usage.test.js tests/upgrade.test.js tests/check-update.test.js tests/verify.test.js
+step "integrity manifest is current" bash -c "node scripts/build-integrity.js >/dev/null && git diff --quiet -- INTEGRITY.json"
 step "package builds" node scripts/build-package.js
 step "package runs" node packages/zd-tools/bin/zd-tools.js --version
 if have pwsh; then step "PowerShell installer parses" pwsh -NoProfile -Command '$null = [scriptblock]::Create((Get-Content -Raw install.ps1))'

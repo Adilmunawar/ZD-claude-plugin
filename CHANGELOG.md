@@ -2,6 +2,16 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.6.0 — 2026-09-07
+
+Security
+- `guard-bash` blocks fetch-and-execute (`curl | sh`, `irm | iex`), printing or uploading credential files, echoing `*TOKEN*`/`*SECRET*` variables, dumping the environment, minting cloud keys, persistence (shell startup files, `authorized_keys`, cron, scheduled tasks), edits to Claude Code settings / plugin cache / hook definitions, credential-helper changes, world-writable permissions, root shells, publishing outside CI, and recursive deletes of system directories. 28 new blocked cases and 17 allowed cases in tests.
+- `guard-write` refuses protected paths (settings, plugin cache, `hooks.json`, shell startup, ssh, git hooks, `.npmrc`), workflows using `pull_request_target` or untrusted event interpolation, and open Firestore rules. Secret detection gains Slack/Discord webhooks, Google OAuth, FCM, JWT, Azure, SendGrid, Twilio, Mapbox patterns and an entropy-gated generic rule; placeholder text is recognised more widely.
+- Integrity: `INTEGRITY.json` (sha256 of every hook script, agent, skill and CLI file) is committed, checked in CI and required current at release; `/zaraat-dost:verify` and `zd-tools verify` detect a modified, missing or unexpected file in an install.
+- Supply chain: every GitHub Action pinned to a commit SHA (test-enforced), least-privilege `permissions` on every workflow, build provenance attestations on release assets, new `security.yml` with CodeQL (JS/TS + Python), OpenSSF Scorecard, dependency review on PRs and a weekly full-history secrets audit.
+- Templates deny reading `~/.ssh`, `~/.aws`, `~/.netrc`, `~/.npmrc`, writing `~/.claude/**` and workflows, and the fetch-and-execute shell forms.
+- `docs/SECURITY-MODEL.md`: threats, the control for each, what is not covered, how to verify.
+
 ## 7.5.0 — 2026-09-07
 
 Added

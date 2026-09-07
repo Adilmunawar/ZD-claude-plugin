@@ -35,6 +35,7 @@ function scanText(text, file, findings, where) {
     for (const chunk of chunks) {
       for (const rule of P) {
         const m = rule.re.exec(chunk);
+        if (m && rule.entropy && !(m[1] && P.entropy(m[1]) >= rule.entropy)) continue;
         if (m && !P.PLACEHOLDER.test(m[0]) && !seenOnLine.has(rule.id)) {
           seenOnLine.add(rule.id);
           findings.push({ file, line: i + 1, rule: rule.id, why: rule.why, where, sample: m[0].slice(0, 12) + "…" });

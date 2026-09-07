@@ -2,6 +2,10 @@
 
 Run `/zaraat-dost:upgrade`; it applies the steps below for every version you cross. Versions not listed need no manual action.
 
+## 7.5.0 → 7.6.0
+- Stricter guards. Commands now blocked that may surprise you: `cat .env`, `echo $SOME_TOKEN`, bare `env`/`printenv`, `curl … | sh`, any edit under `~/.claude/`, `npm publish`, `gh release create`. Each block says why; run the command yourself in a terminal if intended, or `/hooks` to disable per project.
+- `INTEGRITY.json` is a new tracked file; `scripts/release.sh` regenerates it and the release workflow refuses a tag when it is stale.
+
 ## 7.4.x → 7.5.0
 - New module `zd-dotnet`, pulled in by the bundle. Two new write guards apply only to `db/APPLIED_*.sql`/`PENDING_*.sql` and .NET startup files that call `Migrate()`/`EnsureCreated()`; repos that legitimately use EF migrations at startup can disable the hook per project with `/hooks`.
 

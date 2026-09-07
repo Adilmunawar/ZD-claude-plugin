@@ -21,7 +21,18 @@
       "Read(./**/appsettings.Production.json)",
       "Read(./**/*ee-key*.json)",
       "Read(./**/*.pem)",
-      "Read(./**/*.pfx)"
+      "Read(./**/*.pfx)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.netrc)",
+      "Read(~/.npmrc)",
+      "Write(~/.claude/**)",
+      "Edit(~/.claude/**)",
+      "Write(./.github/workflows/**)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
+      "Bash(irm * | iex)"
     ]
   }
 }

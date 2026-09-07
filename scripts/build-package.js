@@ -7,7 +7,7 @@ const ROOT = path.join(__dirname, ".."), LIB = path.join(ROOT, "packages", "zd-t
 const SRC = {
   "plugins/zd-core/scripts": ["patterns.js", "secrets-audit.js", "guard-bash.js", "guard-write.js"],
   "plugins/zd-usage/scripts": ["lib.js", "usage-report.js", "budget-check.js"],
-  "plugins/zaraat-dost/scripts": ["upgrade.js"],
+  "plugins/zaraat-dost/scripts": ["upgrade.js", "verify.js"],
 };
 fs.rmSync(LIB, { recursive: true, force: true }); fs.mkdirSync(path.join(LIB, "plugin-root", ".claude-plugin"), { recursive: true });
 for (const [dir, files] of Object.entries(SRC)) for (const f of files) fs.copyFileSync(path.join(ROOT, dir, f), path.join(LIB, f));

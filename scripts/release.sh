@@ -50,6 +50,7 @@ grep -q "^## $V " CHANGELOG.md || {
 }
 
 python3 scripts/gen-docs.py >/dev/null
+node scripts/build-integrity.js
 bash scripts/validate.sh
 
 echo

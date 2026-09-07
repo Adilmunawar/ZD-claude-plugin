@@ -15,6 +15,7 @@ const IN_REPO = {
   "usage-report.js": "plugins/zd-usage/scripts/usage-report.js",
   "budget-check.js": "plugins/zd-usage/scripts/budget-check.js",
   "upgrade.js": "plugins/zaraat-dost/scripts/upgrade.js",
+  "verify.js": "plugins/zaraat-dost/scripts/verify.js",
 };
 function resolveScript(file) {
   const packed = path.join(LIB, file);
@@ -29,6 +30,7 @@ const COMMANDS = {
   "usage":         ["usage-report.js",  "Claude Code usage by project/model/day/week from local transcripts; --export / --merge for teams."],
   "budget-check":  ["budget-check.js",  "Print a warning when this week's usage exceeds 80% / 100% of ZD_WEEKLY_TOKEN_BUDGET."],
   "upgrade":       ["upgrade.js",       "Update the zaraat-dost marketplace, bundle and every module (needs the claude CLI)."],
+  "verify":        ["verify.js",        "Compare the installed toolkit with the release INTEGRITY.json; exit 1 if any hook, agent or skill differs."],
   "guard-bash":    ["guard-bash.js",    "Stdin JSON {tool_input:{command}} → exit 2 if destructive. For custom hook setups."],
   "guard-write":   ["guard-write.js",   "Stdin JSON {tool_input:{file_path,content}} → exit 2 if it looks like a credential."],
 };

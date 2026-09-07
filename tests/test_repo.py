@@ -27,6 +27,7 @@ def test_versions_aligned():
     vers = {json.load(open(f))["name"]: json.load(open(f))["version"] for f in glob.glob(f"{ROOT}/plugins/*/.claude-plugin/plugin.json")}
     vers["@adilmunawar/zd-tools"] = json.load(open(f"{ROOT}/packages/zd-tools/package.json"))["version"]
     vers["zd-tools (root, for github: installs)"] = json.load(open(f"{ROOT}/package.json"))["version"]
+    vers["INTEGRITY.json"] = json.load(open(f"{ROOT}/INTEGRITY.json"))["version"]
     assert len(set(vers.values())) == 1, vers
 
 def test_skills_and_agents_frontmatter():
@@ -127,6 +128,21 @@ def test_plugin_root_references_resolve():
         for f in files:
             for ref in set(re.findall(r"\$\{CLAUDE_PLUGIN_ROOT\}/([A-Za-z0-9_./-]+)", open(f, encoding="utf-8").read())):
                 assert os.path.exists(os.path.join(plugin_dir, ref)), f"{f}: ${{CLAUDE_PLUGIN_ROOT}}/{ref} does not exist in the plugin"
+
+def test_workflows_are_hardened():
+    """Actions pinned by commit SHA, top-level permissions declared, no pull_request_target, no untrusted interpolation."""
+    try:
+        import yaml
+    except ImportError:
+        return
+    for wf in glob.glob(f"{ROOT}/.github/workflows/*.yml"):
+        txt = open(wf, encoding="utf-8").read(); d = yaml.safe_load(txt)
+        assert "permissions" in d, f"{wf}: declare top-level permissions"
+        assert "pull_request_target" not in txt, f"{wf}: pull_request_target is not allowed"
+        assert not re.search(r"\$\{\{\s*github\.event\.(issue|pull_request|comment)\.(title|body)", txt), f"{wf}: untrusted event text in an expression"
+        for m in re.finditer(r"uses:\s*([^\s@]+)@([^\s#]+)", txt):
+            if m.group(1).startswith("./"): continue
+            assert re.fullmatch(r"[0-9a-f]{40}", m.group(2)), f"{wf}: {m.group(1)} must be pinned to a 40-hex commit SHA, not '{m.group(2)}'"
 
 def test_workflows_are_valid():
     """A workflow that fails to parse shows up as a red run with no jobs; catch it before pushing."""

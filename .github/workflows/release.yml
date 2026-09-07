@@ -6,19 +6,21 @@ on:
 permissions:
   contents: write
   packages: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com
           scope: "@adilmunawar"
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with: { python-version: "3.12" }
 
       - name: Resolve version and check the tag matches every manifest
@@ -48,6 +50,11 @@ jobs:
       - name: Audit this repository for credentials
         run: node plugins/zd-core/scripts/secrets-audit.js . --history --ignore=tests,packages
 
+      - name: Integrity manifest must be current
+        run: |
+          node scripts/build-integrity.js
+          git diff --quiet -- INTEGRITY.json || { echo "::error::INTEGRITY.json is stale — run node scripts/build-integrity.js and commit before tagging"; exit 1; }
+
       - name: Build release assets
         run: |
           set -euo pipefail
@@ -72,6 +79,11 @@ jobs:
           npx zd-tools secrets-audit . >/dev/null
           echo '{"tool_input":{"command":"DROP TABLE x"}}' | npx zd-tools guard-bash >/dev/null 2>&1 && { echo "::error::guard did not block"; exit 1; } || true
           echo "tarball verified"
+
+      - name: Attest build provenance for the release assets
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with:
+          subject-path: dist/*
 
       - name: Publish @adilmunawar/zd-tools to GitHub Packages
         working-directory: packages/zd-tools
@@ -118,7 +130,7 @@ jobs:
           '
           cat RELEASE_NOTES.md
 
-      - uses: softprops/action-gh-release@v3
+      - uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3
         with:
           body_path: RELEASE_NOTES.md
           files: dist/*

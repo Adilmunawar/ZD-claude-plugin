@@ -182,7 +182,8 @@ flowchart LR
 |---|---|
 | **Detect before acting** | Agents identify the stack (Python, .NET, Next.js, Expo; PostGIS, SQL Server, Firestore, GeoPackage) and ask when unsure. |
 | **Read-only where it should be** | `stack-analyst`, `db-analyst`, `geo-data-qa`, `code-reviewer`, `security-reviewer` have no write tools. |
-| **Guardrails in code, not prompts** | Node hooks block destructive shell, SQL, git, EF Core, Firestore and S3 commands and refuse to write credentials. Unit-tested, dependency-free, identical on Windows, macOS and Linux. |
+| **Guardrails in code, not prompts** | Node hooks block destructive commands, fetch-and-execute, credential exfiltration, persistence, and edits to the assistant's own settings and hooks; refuse to write credentials (entropy-gated), open Firestore rules, injectable workflows and unguarded DB scripts. Unit-tested, dependency-free, identical on Windows, macOS and Linux. |
+| **Verifiable install** | Every release ships `INTEGRITY.json` (sha256 of every hook, agent, skill and CLI file) and signed build provenance; `/zaraat-dost:verify` detects a modified, missing or unexpected file in an install. |
 | **Nothing internal in this repo** | Conventions and methods only — no credentials, project ids, hostnames or client data. Enforced by a test and a self-audit in CI. |
 | **Small context footprint** | About 3k tokens per session for the whole bundle; product skills load only when matching files are touched; long reports run in forked contexts. |
 | **Measures itself** | A private ledger of every session; `/zd-usage:report`; weekly budgets with a session-start warning; team CSV merge. |
@@ -204,7 +205,11 @@ zd-tools usage week --by project       # Claude Code usage from local transcript
 zd-tools upgrade                       # update the toolkit
 ```
 
-Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.5.0`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
+Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.6.0`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
+
+## Security
+
+Actions pinned by commit SHA, CodeQL and OpenSSF Scorecard weekly, dependency review on PRs, full-history secrets audit on every push, signed build provenance on every release asset. Threat model and what is *not* covered: [docs/SECURITY-MODEL.md](docs/SECURITY-MODEL.md).
 
 ## Verified
 
@@ -223,6 +228,8 @@ Every release is exercised against the real Claude Code CLI before it is tagged 
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | symptoms → causes → fixes |
 | [Test report](docs/TEST-REPORT.md) | every install/upgrade/package path tested, with results |
 | [Known risks](docs/RISKS.md) | what can still go wrong, what guards it, what to do |
+| [Security model](docs/SECURITY-MODEL.md) | threats, the code that blocks each, how to verify a release or an install |
+| [Security model](docs/SECURITY-MODEL.md) | threats, the code that blocks each, how to verify a release or an install |
 | [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md) · [Changelog](CHANGELOG.md) | |
 
 ## FAQ

@@ -8,7 +8,7 @@ effort: low
 
 Print this reference. If `$ARGUMENTS` names a module or command, show only that part with a three-line example.
 
-**Setup** · `/zaraat-dost:doctor` environment check · `/zaraat-dost:setup` configure this repo · `/zaraat-dost:upgrade` update the toolkit · `/zaraat-dost:workstation` set up a machine · `/zaraat-dost:standards` apply repo standards · `/zd-core:onboard` write CLAUDE.md · `/zd-core:handoff` session hand-over · `/zd-core:secrets-audit` find committed credentials
+**Setup** · `/zaraat-dost:doctor` environment check · `/zaraat-dost:setup` configure this repo · `/zaraat-dost:upgrade` update the toolkit · `/zaraat-dost:verify` check the install is intact · `/zaraat-dost:verify` check the install is intact · `/zaraat-dost:workstation` set up a machine · `/zaraat-dost:standards` apply repo standards · `/zd-core:onboard` write CLAUDE.md · `/zd-core:handoff` session hand-over · `/zd-core:secrets-audit` find committed credentials
 
 **Study** · agent `stack-analyst` codebase map · agent `db-analyst` database → `docs/DATABASE.md` · `/zd-gis:study-dashboard` · `/zd-agis:audit`
 
