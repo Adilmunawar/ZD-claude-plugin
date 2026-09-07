@@ -9,6 +9,6 @@ function* walk(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) 
 const files = {};
 for (const f of walk(ROOT)) { const rel = path.relative(ROOT, f).replace(/\\/g, "/"); if (INCLUDE.test(rel)) files[rel] = crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex"); }
 const version = JSON.parse(fs.readFileSync(path.join(ROOT, "plugins/zaraat-dost/.claude-plugin/plugin.json"))).version;
-const out = { version, generated: new Date().toISOString(), algorithm: "sha256", files };
+const out = { version, algorithm: "sha256", files };   // no timestamp: the manifest must be reproducible byte-for-byte
 fs.writeFileSync(path.join(ROOT, "INTEGRITY.json"), JSON.stringify(out, null, 2) + "\n");
 console.log(`INTEGRITY.json: ${Object.keys(files).length} files at ${version}`);

@@ -1,6 +1,5 @@
 {
   "version": "7.6.0",
-  "generated": "2026-09-07T12:17:00.433Z",
   "algorithm": "sha256",
   "files": {
     ".claude-plugin/marketplace.json": "b3914186cd5dc90d504eab6eee564428316af952c84b671631eb647016d3c20b",
