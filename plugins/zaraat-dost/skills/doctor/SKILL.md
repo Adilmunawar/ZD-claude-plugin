@@ -10,7 +10,7 @@ Run each check with Bash (Windows: PowerShell equivalents) and print a table `Ch
 |---|---|
 | Node ≥ 18 (hooks) | `node --version` |
 | Claude Code version | `claude --version` |
-| Modules installed | `claude plugin list` → expect zd-core, zd-gis, zd-vector, zd-models, zd-ml, zd-gee, zd-agis, zd-mobile, zd-deploy, zd-quality, zd-security, zd-ops, zd-usage, zd-reports |
+| Modules installed | `claude plugin list` → expect zd-core, zd-gis, zd-vector, zd-models, zd-ml, zd-gee, zd-agis, zd-mobile, zd-dotnet, zd-deploy, zd-quality, zd-security, zd-ops, zd-usage, zd-reports |
 | Python ≥ 3.10 | `python --version` / `python3 --version` |
 | GeoPandas / rasterio / shapely ≥ 2 | `python -c "import geopandas, rasterio, shapely; print(shapely.__version__)"` |
 | GDAL CLI | `ogr2ogr --version` |

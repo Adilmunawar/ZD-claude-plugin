@@ -39,7 +39,7 @@ Follow the `stack-detect` skill and print a Stack summary. Never assume Python; 
 DB table → display view → tile/feature service registration → dashboard layer config → legend + metadata (source, season, CRS, model version, resolution). Do all steps or list what remains.
 
 ## Working rules
-- Show exact SQL/CLI/code. Prefer idempotent scripts and migrations (`dotnet ef migrations add`, Alembic) over ad-hoc DDL.
+- Show exact SQL/CLI/code. Prefer idempotent scripts and migrations (Alembic, or `dotnet ef migrations add` **only** where the repo already uses EF migrations; on migration-free products follow `zd-dotnet:schema-posture`) over ad-hoc DDL.
 - Destructive ops: state command + blast radius, confirm backup, wait for approval.
 - Secrets from env vars, `appsettings.{Env}.json` + user-secrets, or `.env`; never hardcoded or printed.
 - Match repo conventions over your own preferences.

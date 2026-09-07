@@ -52,6 +52,19 @@ test("guard-write detects credential content", () => {
   assert.ok(write.check("appsettings.json", '"Default": "Server=db;User Id=sa;Password=SuperSecret123;"'));
   assert.ok(write.check("src/x.py", 'api_key = "sk-' + "z".repeat(40) + '"'));
 });
+test("guard-write enforces the schema posture", () => {
+  assert.ok(write.check("apps/api/db/APPLIED_2026-09-07_ZD_Thing_create.sql", "CREATE TABLE ZD_Thing (Id int)"), "change script without XACT_ABORT is refused");
+  assert.equal(write.check("apps/api/db/APPLIED_2026-09-07_ZD_Thing_create.sql", "SET XACT_ABORT ON;\nBEGIN TRY\nCREATE TABLE ZD_Thing (Id int)\nEND TRY"), null);
+  assert.equal(write.check("apps/api/db/REFERENCE_sp_Thing.sql", "CREATE PROCEDURE dbo.sp_Thing AS SELECT 1"), null, "reference copies are not change scripts");
+  assert.ok(write.check("src/Api/Program.cs", "db.Database.Migrate();"), "startup migration is refused");
+  assert.equal(write.check("src/Api/Program.cs", "app.MapHealthChecks(\"/health\");"), null);
+});
+test("guard-bash blocks running database change scripts", () => {
+  assert.ok(bash.check("sqlcmd -S localhost -i db/APPLIED_2026-09-07_ZD_Thing_create.sql"));
+  assert.ok(bash.check("Invoke-Sqlcmd -InputFile db/ROLLBACK_2026-09-07_ZD_Thing.sql"));
+  assert.ok(bash.check("dotnet ef database update"));
+  assert.equal(bash.check("sqlcmd -S localhost -Q \"SELECT 1\""), null);
+});
 test("guard-write allows placeholders and env references", () => {
   assert.equal(write.check("src/x.py", 'HF_TOKEN = os.environ.get("HF_TOKEN")'), null);
   assert.equal(write.check("README.md", 'export HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'), null);

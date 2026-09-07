@@ -17,12 +17,12 @@ Scan the repo (respect .gitignore; skip node_modules, .venv, bin, obj) and fill 
 | Database | `docker-compose*.yml` services (postgis/postgres/mssql/mysql), `DATABASE_URL`/`PG*`/`ConnectionStrings` in `.env*` or `appsettings*.json` (read keys only, never print secrets), `*.gpkg`, `*.sqlite`, `*.mdf` | engine + how to connect |
 | Spatial ext | `CREATE EXTENSION postgis` in migrations; `geometry(` / `geography(` columns; `[Column(TypeName = "geometry")]`; `UseNetTopologySuite()` | PostGIS / SQL Server spatial / SpatiaLite |
 | Tile/feature service | `geoserver`, `pg_tileserv`, `pg_featureserv`, `martin`, `titiler`, `qgis_server`, `tegola` in compose/config; `/tiles/{z}/{x}/{y}` routes | how layers reach the map |
-| ORM/migrations | `alembic/`, `Migrations/`, `prisma/`, `knex`, `flyway`, `dbmate` | how schema changes are applied |
+| ORM/migrations | `alembic/`, `Migrations/`, `prisma/`, `knex`, `flyway`, `dbmate` — **or** `db/APPLIED_*.sql` + `ROLLBACK_*.sql` with no `Migrations/` | how schema changes are applied; the second pattern means **migration-free, hand-run additive scripts** (apply `schema-posture` from zd-dotnet and never propose `dotnet ef`) |
 | Tests/CI | `tests/`, `*.Tests.csproj`, `.github/workflows`, `azure-pipelines.yml`, `Jenkinsfile` | how to verify changes |
 | Run | `Makefile`, `justfile`, `package.json` scripts, `launchSettings.json`, `Dockerfile`, README "Run" section | exact run command |
 
 Output a **Stack summary** block (≤ 12 lines) before doing any work. Then adapt:
 
-- **.NET**: use `dotnet build`/`dotnet test`/`dotnet ef migrations add`; spatial via NetTopologySuite (`Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite` or `Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite`); config from `appsettings.{Environment}.json` + user-secrets, never hardcoded.
+- **.NET**: `dotnet build` (warnings as errors) / `dotnet test`; if the repo has `db/APPLIED_*.sql` and no `Migrations/`, schema changes are hand-run scripts (`zd-dotnet:schema-posture`) — never `dotnet ef migrations`; spatial via NetTopologySuite (`Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite` or `Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite`); config from `appsettings.{Environment}.json` + user-secrets, never hardcoded.
 - **Python**: respect the existing env manager (conda/venv/poetry/uv); don't introduce a second one.
 - **Unknown/empty repo**: say so and ask which stack to scaffold rather than picking one.

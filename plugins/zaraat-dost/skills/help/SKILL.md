@@ -24,6 +24,8 @@ Print this reference. If `$ARGUMENTS` names a module or command, show only that 
 
 **Mobile** · agent `mobile-engineer` · `/zd-mobile:i18n-parity` · `/zd-mobile:release-checklist`
 
+**.NET dashboard** · agent `dotnet-engineer` · agent `dotnet-reviewer` · `/zd-dotnet:db-change` · `/zd-dotnet:reconcile` · `/zd-dotnet:contract-check`
+
 **Deploy** · agent `release-engineer` · `/zd-deploy:preflight` · `/zd-deploy:dockerize` · `/zd-deploy:aws-plan`
 
 **Quality** · agent `code-reviewer` · `/zd-quality:pr-description` · `/zd-quality:changelog` · `/zd-quality:adr` · `/zd-quality:tech-debt`
@@ -36,4 +38,4 @@ Print this reference. If `$ARGUMENTS` names a module or command, show only that 
 
 **Reports** · `/zd-reports:deliverable-memo` · `/zd-reports:harvest-report` · `/zd-reports:layer-metadata`
 
-Background skills apply automatically (stack-detect, postgis-conventions, pakistan-crs, study-db, raster-to-polygons, topology-repair, straighten-edges, road-subtract, boundary-inference, spectral-features, landuse-classify, sub-parcelling, sam2-boundaries, seg-preflight, train-template, colab-ram-safe, gee-auth, gee-export, sentinel-composite, agis-architecture, cadastral-schema, gee-api-routes, pyodide-workers, inference-backend, app-rules, api-contract, deploy-profiles, review-standards, conventional-commits, security-review, observability, usage-hygiene). Output style: `/output-style zd-brief`.
+Background skills apply automatically (stack-detect, postgis-conventions, pakistan-crs, study-db, raster-to-polygons, topology-repair, straighten-edges, road-subtract, boundary-inference, spectral-features, landuse-classify, sub-parcelling, sam2-boundaries, seg-preflight, train-template, colab-ram-safe, gee-auth, gee-export, sentinel-composite, agis-architecture, cadastral-schema, gee-api-routes, pyodide-workers, inference-backend, app-rules, api-contract, slice-conventions, schema-posture, legacy-parity, winsw-deploy, deploy-profiles, review-standards, conventional-commits, security-review, observability, usage-hygiene). Output style: `/output-style zd-brief`.

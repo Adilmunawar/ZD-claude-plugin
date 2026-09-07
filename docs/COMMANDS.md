@@ -68,6 +68,26 @@ Hooks: see `hooks/hooks.json` and `scripts/*.js`.
 |---|---|
 | `deploy-profiles` | How each service runs locally and in the cloud (Firebase App Hosting, Vercel, Hugging Face Spaces, EAS, Docker, AWS) with commands, config, env sources, health checks, rollback. Apply to deploy, hosting, environment or AWS tasks. |
 
+## zd-dotnet
+
+| Agent | Model | Use for |
+|---|---|---|
+| `dotnet-engineer` | inherit | Builds and fixes the .NET dashboard API and its Next.js frontend — minimal-API feature slices, proc-backed SQL Server data, legacy-parity ports, YARP gateway, WinSW deployment. Knows that the database is the contract and that the old API still writes survey rows. |
+| `dotnet-reviewer` | inherit | Read-only reviewer for .NET API and Next.js dashboard changes — schema posture, second-writer risk, parity math, scope gating, rate limits, secrets in packages, ledger updates. Use before merging or applying a database script. |
+
+| Command | Purpose |
+|---|---|
+| `/zd-dotnet:contract-check <mobile-repo-or-endpoints.ts> <api-repo-or-Features-dir>` · forked | Check the mobile app's API client types against the .NET API's DTOs and envelope, both directions, and list every mismatch. Use when either side changes or before a mobile release. |
+| `/zd-dotnet:db-change <object> \"<what changes>\` | Draft a database change the way this team applies them — PENDING script with XACT_ABORT, guards and verification SELECTs, its ROLLBACK twin captured from OBJECT_DEFINITION, the applied-to log row and the OPEN-DECISIONS entry — without running anything. |
+| `/zd-dotnet:reconcile <feature> [unit/circle/mauza] [season]` · forked | Reconcile a rebuilt endpoint or page against the legacy one on the same inputs — rows × fields diff, scalar diff, timings — and write the result into CONVERSION.md. |
+
+| Background skill (applied automatically) | When |
+|---|---|
+| `legacy-parity` | Porting a legacy page or endpoint: reproduce the figure digit-for-digit first, reconcile against production, record known inconsistencies, fix only under a decision. Units, area rules, text-sorted dates and dual-id traps. Apply when rebuilding, reconciling or comparing old and new dashboard behaviour. _(activates on matching paths)_ |
+| `schema-posture` | How database changes are made against the live SQL Server — never migrations; hand-run additive scripts with XACT_ABORT, verification SELECTs, a byte-verbatim ROLLBACK twin, an applied-to log and owner authorization. Apply to any SQL, DDL, index, proc or data change. _(activates on matching paths)_ |
+| `slice-conventions` | Layout and rules for the .NET minimal-API vertical slices and the Next.js dashboard routes — Endpoints/Models/Service per feature, proc-backed data access, policy gating, rate-limit policies, tests on SQLite, frontend route-local libs. Apply when adding or changing a feature in the dashboard API or web app. _(activates on matching paths)_ |
+| `winsw-deploy` | Deploying the dashboard as Windows services on the existing EC2 host — self-contained publish, package without local settings, stop/rename/swap/start with a health check and automatic rollback, YARP gateway on the public port. Apply to deploy, package, update, rollback or service questions for the .NET stack. _(activates on matching paths)_ |
+
 ## zd-gee
 
 | Command | Purpose |

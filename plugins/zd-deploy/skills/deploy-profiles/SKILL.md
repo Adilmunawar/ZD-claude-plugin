@@ -8,7 +8,8 @@ description: How each service runs locally and in the cloud (Firebase App Hostin
 | Next.js dashboard | `npm run dev` (port 9002) | Firebase App Hosting (`apphosting.yaml`, `firebase deploy`) or Vercel (`vercel --prod`) | `next.config.js`, `apphosting.yaml` | App Hosting secrets / Vercel env (server: `EE_BASE64_KEY`, `HF_SPACE_URL`, `HF_TOKEN`; client: `NEXT_PUBLIC_FIREBASE_*`) | `GET /` 200 + `/api/gee/tiles` 200 |
 | Firestore/Storage | Emulator suite (`firebase emulators:start`) | Firebase | `firestore.rules`, `cors.json` | — | rules deploy dry-run |
 | Flask inference backend | `docker compose up backend` | Hugging Face Space (Docker SDK, `git push` to the Space) or any Docker host | `Dockerfile`, `requirements.txt` | Space secrets / container env (`HF_TOKEN`, `EE_BASE64_KEY`) | `GET /health` < 1 s |
-| .NET API (FarmerFacilitator) | `dotnet run` / `docker compose up api` | VM or AWS (see below) | `appsettings.{Env}.json`, `Dockerfile` | user-secrets locally; AWS SSM Parameter Store / Secrets Manager in cloud | `GET /health` + one enveloped endpoint |
+| .NET API (farmer API) | `dotnet run` / `docker compose up api` | VM or AWS (see below) | `appsettings.{Env}.json`, `Dockerfile` | user-secrets locally; AWS SSM Parameter Store / Secrets Manager in cloud | `GET /health` + one enveloped endpoint |
+| .NET dashboard + Next.js (mills) | `dotnet run` (API) + `npm run dev` (web) against a restored test copy of the DB | **existing Windows EC2 host**: three WinSW services (Api loopback, Web loopback, YARP Gateway public) — `zd-dotnet:winsw-deploy` | `tools/deploy/package.ps1`, `update.ps1`, WinSW XMLs | `appsettings.Local.json` on the server only, never in the package | gateway `/health` before the swap is declared done; automatic rollback to `.bak` |
 | Expo app | `npx expo start` | EAS Build (`eas build -p android --profile production`), EAS Update for OTA | `eas.json`, `app.json` | `EXPO_PUBLIC_API_BASE` at build time | `npm run check-bundle` |
 | Pipeline scripts | conda env + GPU | GPU VM / Colab / EC2 g-instance | script constants | `.env` loaded by `python-dotenv` | dry-run prints plan |
 
@@ -21,4 +22,4 @@ AWS profile (when a service moves to AWS)
 - **Local parity**: `docker-compose.yml` with the same images and env names; LocalStack optional for S3.
 - **Observability**: CloudWatch logs per task, an alarm on 5xx and on task restarts, a dashboard with request rate and latency.
 
-Rollback: App Hosting/Vercel → redeploy previous build; ECS → update service to previous task definition revision; Space → `git revert` + push; EAS → previous update channel rollback; database migrations → only additive in the same release as code that tolerates both schemas.
+Rollback: App Hosting/Vercel → redeploy previous build; ECS → update service to previous task definition revision; Space → `git revert` + push; EAS → previous update channel rollback; WinSW → `update.ps1` restores the `.bak-<stamp>` folders automatically on a failed health check; database changes → additive only, and on the migration-free products a paired `ROLLBACK_` script, never an EF migration.

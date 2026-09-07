@@ -9,6 +9,7 @@ zd-core ◀── zd-deploy
 zd-gee  ◀── zd-agis
 zd-vector, zd-gee, zd-ml ◀── zd-models
 zd-core ◀── zd-security
+zd-core ◀── zd-dotnet
 zd-deploy ◀── zd-ops
 zd-gis, zd-mobile, zd-quality, zd-usage, zd-reports  (independent)
 ```
@@ -20,7 +21,7 @@ zd-gis, zd-mobile, zd-quality, zd-usage, zd-reports  (independent)
 | Guardrails and workflow | zd-core | Node hooks, secrets audit, stack detection, onboarding, hand-over |
 | Data and platform | zd-gis, zd-gee, zd-deploy | Spatial databases and dashboards, Earth Engine, hosting profiles |
 | Domain pipeline | zd-vector, zd-models, zd-ml | Raster → parcels → features → classes; model training |
-| Products | zd-agis, zd-mobile, zd-reports | The web dashboard, the farmer app, client deliverables |
+| Products | zd-agis, zd-mobile, zd-dotnet, zd-reports | The web dashboard, the farmer app, the .NET dashboard/API, client deliverables |
 | Engineering practice | zd-quality, zd-security, zd-ops, zd-usage | Review, commits, ADRs, security baseline, incidents and runbooks |
 
 ## Design rules

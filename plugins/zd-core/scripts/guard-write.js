@@ -10,6 +10,13 @@ function readInput() { try { return JSON.parse(fs.readFileSync(0, "utf8")); } ca
 function check(filePath, content) {
   const p = (filePath || "").replace(/\\/g, "/");
   if (P.SECRET_PATHS.test(p)) return `refusing to write secrets file ${p}. Create it manually and keep it out of git.`;
+  // Database change scripts must carry XACT_ABORT (team schema posture); .NET startup must never migrate.
+  if (/(^|\/)db\/(APPLIED|PENDING)_[^/]+\.sql$/i.test(p) && !/SET\s+XACT_ABORT\s+ON/i.test(content || "")) {
+    return `${p} is a database change script without SET XACT_ABORT ON. Add it (with TRY/CATCH, guards, verification SELECTs) and a ROLLBACK_ twin.`;
+  }
+  if (/(^|\/)(Program|Startup)\.cs$/i.test(p) && /\.(Migrate|EnsureCreated|EnsureDeleted)\s*\(/.test(content || "")) {
+    return `${p} calls Migrate/EnsureCreated at startup. This team's databases are the contract: schema changes are hand-run additive scripts, never startup migrations.`;
+  }
   for (const rule of P) {
     const m = rule.re.exec(content || "");
     if (m && !P.PLACEHOLDER.test(m[0])) {

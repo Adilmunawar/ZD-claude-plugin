@@ -1,0 +1,25 @@
+{
+  "name": "zd-dotnet",
+  "displayName": "Zaraat Dost \u00b7 .NET",
+  "version": "7.5.0",
+  "description": ".NET dashboard/API conventions: vertical feature slices, proc-backed data, migration-free additive schema changes with paired rollbacks, WinSW deployment with health-checked swap, parity-first porting.",
+  "author": {
+    "name": "Zaraat Dost ML/GIS team",
+    "url": "https://github.com/adilmunawar"
+  },
+  "homepage": "https://github.com/adilmunawar/ZD-claude-plugin/tree/main/plugins/zd-dotnet",
+  "repository": "https://github.com/adilmunawar/ZD-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zaraat-dost",
+    "dotnet",
+    "sql-server",
+    "winsw"
+  ],
+  "dependencies": [
+    {
+      "name": "zd-core",
+      "version": "^7.5.0"
+    }
+  ]
+}

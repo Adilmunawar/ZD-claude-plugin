@@ -17,8 +17,8 @@ Base module. Every other module assumes it is installed.
 
 | Event | Script | Behaviour |
 |---|---|---|
-| PreToolUse · Bash | `scripts/guard-bash.js` | Blocks recursive deletes, force push, history-discarding git, `DROP`/`TRUNCATE`, `DELETE` without `WHERE`, `dotnet ef database drop`, recursive Firestore/S3 deletes |
-| PreToolUse · Write/Edit | `scripts/guard-write.js` | Refuses to write `.env`, key files, or content matching a credential pattern |
+| PreToolUse · Bash | `scripts/guard-bash.js` | Blocks recursive deletes, force push, history-discarding git, `DROP`/`TRUNCATE`, `DELETE` without `WHERE`, `dotnet ef database drop/update`, running `APPLIED_`/`PENDING_`/`ROLLBACK_` SQL scripts, recursive Firestore/S3 deletes |
+| PreToolUse · Write/Edit | `scripts/guard-write.js` | Refuses to write `.env`, key files, content matching a credential pattern, a `db/APPLIED_*.sql`/`PENDING_*.sql` without `SET XACT_ABORT ON`, or a .NET startup that calls `Migrate`/`EnsureCreated` |
 | PostToolUse · Write/Edit | `scripts/after-write.js` | After a vector file is written, reminds Claude to run QA |
 
 Patterns live in `scripts/patterns.js` and are shared by the write guard and the audit. All scripts are plain Node with no dependencies, tested in `tests/`, and behave identically on Windows, macOS and Linux. Disable per project with `/hooks`.

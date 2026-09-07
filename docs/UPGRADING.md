@@ -2,6 +2,9 @@
 
 Run `/zaraat-dost:upgrade`; it applies the steps below for every version you cross. Versions not listed need no manual action.
 
+## 7.4.x → 7.5.0
+- New module `zd-dotnet`, pulled in by the bundle. Two new write guards apply only to `db/APPLIED_*.sql`/`PENDING_*.sql` and .NET startup files that call `Migrate()`/`EnsureCreated()`; repos that legitimately use EF migrations at startup can disable the hook per project with `/hooks`.
+
 ## 7.3.0 → 7.3.1
 - Installer and URL fixes only. Existing installs need nothing.
 

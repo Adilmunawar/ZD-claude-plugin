@@ -15,7 +15,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![platforms](https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-lightgrey)
 
-One install · 14 modules · 41 commands · 12 agents · npm package · tested hooks · verified against the Claude Code CLI
+One install · 15 modules · 44 commands · 14 agents · npm package · tested hooks · verified against the Claude Code CLI
 
 [Quick start](#quick-start) · [Use cases](#use-cases) · [Modules](#modules) · [How it behaves](#how-it-behaves) · [Docs](#documentation)
 
@@ -150,6 +150,7 @@ Result: env vars verified by name, secrets audit clean, rollback written down be
 | **zd-gee** | Earth Engine: auth, export limits, composites, time series, harvest detection | [→](plugins/zd-gee/README.md) |
 | **zd-agis** | The Next.js / Firebase / Earth Engine dashboard and its inference backend | [→](plugins/zd-agis/README.md) |
 | **zd-mobile** | The Expo farmer app: RTL i18n, API contract, secure storage, releases | [→](plugins/zd-mobile/README.md) |
+| **zd-dotnet** | The .NET dashboard/API: feature slices, migration-free schema changes with rollbacks, WinSW deployment, legacy parity | [→](plugins/zd-dotnet/README.md) |
 | **zd-deploy** | Local vs cloud profiles: Firebase App Hosting, Vercel, HF Spaces, EAS, Docker, AWS | [→](plugins/zd-deploy/README.md) |
 | **zd-quality** | Code review, conventional commits, PR descriptions, changelog, ADRs, tech debt | [→](plugins/zd-quality/README.md) |
 | **zd-security** | Security review, dependency audit, repository hardening | [→](plugins/zd-security/README.md) |
@@ -163,12 +164,13 @@ Every module installs on its own (`/plugin install zd-vector@zaraatdost`). Full 
 flowchart LR
   B[zaraat-dost<br/>bundle] --> C[zd-core]
   B --> G[zd-gis] & V[zd-vector] & M[zd-models] & L[zd-ml] & E[zd-gee]
-  B --> A[zd-agis] & MO[zd-mobile] & D[zd-deploy]
+  B --> A[zd-agis] & MO[zd-mobile] & DN[zd-dotnet] & D[zd-deploy]
   B --> Q[zd-quality] & S[zd-security] & O[zd-ops] & U[zd-usage] & R[zd-reports]
   M -.-> V & E & L
   A -.-> E
   D -.-> C
   S -.-> C
+  DN -.-> C
   O -.-> D
   classDef core fill:#1f7a4d,color:#fff,stroke:none
   class B,C core
@@ -202,7 +204,7 @@ zd-tools usage week --by project       # Claude Code usage from local transcript
 zd-tools upgrade                       # update the toolkit
 ```
 
-Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.4.1`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
+Pin a version with `npm i -g github:Adilmunawar/ZD-claude-plugin#v7.5.0`, or install the tarball from a [release](https://github.com/Adilmunawar/ZD-claude-plugin/releases). The scoped name `@adilmunawar/zd-tools` lives on **GitHub Packages**, not npmjs — installing it by name returns 404 unless you configure `~/.npmrc`; see [packages/zd-tools](packages/zd-tools/README.md). Every release also carries the marketplace archive and SHA-256 sums for offline installs.
 
 ## Verified
 

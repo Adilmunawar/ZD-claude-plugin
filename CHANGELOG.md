@@ -2,6 +2,16 @@
 
 All notable changes to this repository are documented here. Versions follow semantic versioning; the bundle and all modules share one version.
 
+## 7.5.0 — 2026-09-07
+
+Added
+- `zd-dotnet`, built from the .NET dashboard repository's own ledgers: `dotnet-engineer` and read-only `dotnet-reviewer` agents; `slice-conventions`, `schema-posture` (no migrations — hand-run additive scripts with `XACT_ABORT`, byte-verbatim `ROLLBACK_` twins, an applied-to log and owner authorization), `legacy-parity`, `winsw-deploy`; commands `/zd-dotnet:db-change`, `/zd-dotnet:reconcile`, `/zd-dotnet:contract-check`.
+- Guards: writing a `db/APPLIED_*.sql` or `PENDING_*.sql` without `SET XACT_ABORT ON`, or a .NET startup that calls `Migrate`/`EnsureCreated`, is refused; running `APPLIED_`/`PENDING_`/`ROLLBACK_` scripts via `sqlcmd`/`Invoke-Sqlcmd`, and `dotnet ef database update`, are blocked. Tests added.
+
+Changed
+- `stack-detect` recognises the migration-free pattern (`db/APPLIED_*.sql` and no `Migrations/`) and routes to `schema-posture`; `gis-dashboard-manager` and `deploy-profiles` no longer suggest EF migrations on those products; `deploy-profiles` gains the WinSW profile for the existing Windows EC2 host.
+- `zd-mobile:api-contract` points at `/zd-dotnet:contract-check` for the two-way DTO diff.
+
 ## 7.4.1 — 2026-09-06
 
 Fixed — found by adversarial testing, each with a regression test
